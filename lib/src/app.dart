@@ -15,6 +15,7 @@ class App extends StatelessWidget {
         ),
       ),
       darkTheme: ThemeData(colorScheme: darkColorScheme, useMaterial3: true),
+      debugShowCheckedModeBanner: false,
       home: MyHomePage(),
     );
   }
