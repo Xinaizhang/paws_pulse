@@ -7,12 +7,17 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'PawsPulse',
-      // theme: ThemeData(colorScheme: lightColorScheme, useMaterial3: true),
+      // 设置亮色主题
       theme: ThemeData(
-        useMaterial3: true, // 配置颜色方案以匹配 Material 3 风格
+        // 使用 Material3 样式
+        useMaterial3: true,
+        // 设置主题色
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.amber,
+          seedColor: Color.fromRGBO(213, 164, 0, 1),
+          //seedColor: Color.fromRGBO(17, 114, 162, 1),
         ),
+        // 设置全局默认字体
+        fontFamily: 'notoSansSC',
       ),
       darkTheme: ThemeData(colorScheme: darkColorScheme, useMaterial3: true),
       debugShowCheckedModeBanner: false,
@@ -27,7 +32,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _bottomNavigationIndex = 2;
+  int _bottomNavigationIndex = 4;
 
   @override
   Widget build(BuildContext context) {

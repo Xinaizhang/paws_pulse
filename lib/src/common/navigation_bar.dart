@@ -18,23 +18,23 @@ NavigationBar navigationBar(int currentIndex, Function(int) onTap) {
     onDestinationSelected: onTap,
     destinations: [
       NavigationDestination(
-        icon: Icon(Icons.commute_outlined),
+        icon: Icon(Icons.groups_rounded),
         label: '社区',
       ),
       NavigationDestination(
-        icon: Icon(Icons.message_outlined),
+        icon: Icon(Icons.forum_rounded),
         label: '消息',
       ),
       NavigationDestination(
-        icon: Icon(Icons.home_outlined),
+        icon: Icon(Icons.house_rounded),
         label: '首页',
       ),
       NavigationDestination(
-        icon: Icon(Icons.help_outline),
+        icon: Icon(Icons.pets_outlined),
         label: '帮遛',
       ),
       NavigationDestination(
-        icon: Icon(Icons.person_outlined),
+        icon: Icon(Icons.face_rounded),
         label: '我的',
       ),
     ],
