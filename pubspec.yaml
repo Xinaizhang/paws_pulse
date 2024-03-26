@@ -23,3 +23,14 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
+
+  fonts:
+    - family: notoSansSC
+      fonts:
+        - asset: assets/fonts/NotoSansSC-Regular.ttf
+    - family: signikaNegative
+      fonts:
+        - asset: assets/fonts/SignikaNegative-VariableFont_wght.ttf

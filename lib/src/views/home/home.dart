@@ -4,7 +4,22 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('主页')),
+      appBar: AppBar(
+        title: const Text(
+          'PawsPulse',
+          style: TextStyle(
+            fontWeight: FontWeight.w800,
+            //fontFamily: 'signikaNegative',
+          ),
+        ),
+      ),
+      body: Center(
+          child: ElevatedButton(
+        child: Text('主页'),
+        onPressed: () {
+          print("主页");
+        },
+      )),
     );
   }
 }

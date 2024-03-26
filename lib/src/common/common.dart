@@ -1,3 +1,4 @@
 // common.dart
-export 'bottomNavigationBar.dart';
-export 'appTheme.dart';
+export 'navigation_bar.dart';
+export 'color_schemes.g.dart';
+export 'assets.dart';

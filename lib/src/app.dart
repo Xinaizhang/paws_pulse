@@ -7,7 +7,20 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'PawsPulse',
-      theme: AppTheme.light, // 定义在common/common.dart中
+      // 设置亮色主题
+      theme: ThemeData(
+        // 使用 Material3 样式
+        useMaterial3: true,
+        // 设置主题色
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Color.fromRGBO(213, 164, 0, 1),
+          //seedColor: Color.fromRGBO(17, 114, 162, 1),
+        ),
+        // 设置全局默认字体
+        fontFamily: 'notoSansSC',
+      ),
+      darkTheme: ThemeData(colorScheme: darkColorScheme, useMaterial3: true),
+      debugShowCheckedModeBanner: false,
       home: MyHomePage(),
     );
   }
@@ -19,27 +32,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _bottomNavigationIndex = 2; //底部导航的索引
- 
+  int _bottomNavigationIndex = 4;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: pages[_bottomNavigationIndex], //页面切换
-        bottomNavigationBar: _bottomNavigationBar() //底部导航
-        );
-  }
-
-  //底部导航-样式
-  BottomNavigationBar _bottomNavigationBar() {
-    return BottomNavigationBar(
-      items: items(), //底部导航-图标和文字的定义，封装到函数里
-      currentIndex: _bottomNavigationIndex,
-      onTap: (flag) {
+      body: pages[_bottomNavigationIndex],
+      bottomNavigationBar: navigationBar(_bottomNavigationIndex, (index) {
         setState(() {
-          _bottomNavigationIndex = flag; //使用底部导航索引
+          _bottomNavigationIndex = index;
         });
-      }, //onTap 点击切换页面
-      type: BottomNavigationBarType.fixed, //样式：选中图标后的样式是固定的
+      }),
     );
   }
 }
