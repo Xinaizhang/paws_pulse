@@ -35,7 +35,7 @@ class ProfilePage extends StatelessWidget {
                   padding: EdgeInsets.all(20),
                   alignment: Alignment.topCenter,
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surface,
+                    color: Theme.of(context).colorScheme.background,
                     borderRadius: BorderRadius.circular(18),
                     boxShadow: [
                       BoxShadow(
