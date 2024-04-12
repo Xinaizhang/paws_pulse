@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:paws_pulse/src/common/common.dart';
+import 'package:paws_pulse/src/common/index.dart';
 
 class NavPage extends StatefulWidget {
   const NavPage({Key? key}) : super(key: key);

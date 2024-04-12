@@ -7,6 +7,7 @@ class UserProfileOverview extends StatelessWidget {
   final bool hasPassedExam;
   final String userId;
   final String region;
+  final double BarHeight;
   final VoidCallback onSettingsPressed;
 
   const UserProfileOverview({
@@ -16,6 +17,7 @@ class UserProfileOverview extends StatelessWidget {
     required this.hasPassedExam,
     required this.userId,
     required this.region,
+    required this.BarHeight,
     required this.onSettingsPressed,
   }) : super(key: key);
 
@@ -23,17 +25,18 @@ class UserProfileOverview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 280,
-      padding: EdgeInsets.only(left: 24, right: 24, top: 24, bottom: 40),
+      padding: EdgeInsets.only(left: 24, right: 24, top: BarHeight, bottom: 40),
       alignment: Alignment.bottomLeft,
+      // 设置壁纸样式
       decoration: BoxDecoration(
         image: DecorationImage(
           image:
               NetworkImage('http://gallery.pawspulse.top/pawspulse/orange.png'),
           fit: BoxFit.cover,
-          opacity: 0.4,
+          opacity: 0.5,
           // 添加颜色滤镜
           colorFilter: ColorFilter.mode(
-            Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.4),
+            Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.1),
             BlendMode.softLight,
           ),
         ),
@@ -53,11 +56,14 @@ class UserProfileOverview extends StatelessWidget {
           alignment: Alignment.bottomLeft,
           child: Row(
             children: [
+              // 头像
               CircleAvatar(
                 backgroundImage: NetworkImage(avatarUrl),
                 radius: 36.0,
               ),
               SizedBox(width: 24),
+
+              // 简介
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,6 +72,7 @@ class UserProfileOverview extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        // 昵称
                         Text(
                           nickname,
                           style: TextStyle(
@@ -77,6 +84,8 @@ class UserProfileOverview extends StatelessWidget {
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
+
+                        // 是否完成考试的tag
                         Container(
                           margin: EdgeInsets.only(left: 10),
                           padding: EdgeInsets.symmetric(
@@ -108,6 +117,8 @@ class UserProfileOverview extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 4),
+
+                    // ID
                     Text(
                       'ID: $userId',
                       style: TextStyle(
@@ -116,6 +127,8 @@ class UserProfileOverview extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 4),
+                    
+                    // 地区
                     Text(
                       '地区: $region',
                       style: TextStyle(

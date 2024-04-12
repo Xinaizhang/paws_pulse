@@ -1,17 +1,17 @@
 // app.dart
 import 'package:flutter/material.dart';
-import 'package:paws_pulse/src/views/sign_up/sign_up.dart';
-import 'package:paws_pulse/src/views/views.dart';
-import 'package:paws_pulse/src/common/common.dart';
+import 'package:paws_pulse/src/views/index.dart';
+import 'package:paws_pulse/src/common/index.dart';
 
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        '/': (context) => const SignInPage(),
+        //'/': (context) => const SignInPage(),
+        '/': (context) => NavPage(),
         '/signUp': (context) => SignUpPage(),
-        '/nav': (context) => const NavPage(),
+        '/nav': (context) => NavPage(),
       },
       title: 'PawsPulse',
       // 设置亮色主题

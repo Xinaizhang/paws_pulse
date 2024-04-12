@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../common/common.dart';
 
 class CommunityPage extends StatelessWidget {
   @override
@@ -10,12 +9,7 @@ class CommunityPage extends StatelessWidget {
       ),
       body: Container(
           color: Colors.amber,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Image.asset(AssetImages.walk),
-            ],
-          )),
+          child: Text('hahah')),
     );
   }
 }

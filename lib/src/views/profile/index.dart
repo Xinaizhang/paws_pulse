@@ -8,6 +8,9 @@ class ProfilePage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    // 获取状态栏高度
+    double statusBarHeight = MediaQuery.of(context).padding.top;
+
     return Scaffold(
       key: _scaffoldKey,
       body: SingleChildScrollView(
@@ -16,13 +19,16 @@ class ProfilePage extends StatelessWidget {
           height: 1000,
           child: Stack(
             children: [
+              // 个人信息简介
               UserProfileOverview(
                 avatarUrl: 'http://gallery.pawspulse.top/pawspulse/blue.png',
                 nickname: 'Littleight小八',
                 hasPassedExam: false,
                 userId: '123456',
                 region: '上海 杨浦',
+                BarHeight: statusBarHeight,
                 onSettingsPressed: () {
+                  print("设置按钮被点击了");
                   _scaffoldKey.currentState?.openEndDrawer();
                 },
               ),
@@ -53,7 +59,6 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
       ),
-      
       endDrawer: Setting(),
     );
   }
