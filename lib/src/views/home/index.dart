@@ -12,15 +12,19 @@ class HomePage extends StatelessWidget {
         title: const Text(
           'PawsPulse',
           style: TextStyle(
-            fontWeight: FontWeight.w800,
-            //fontFamily: 'signikaNegative',
-          ),
+              fontSize: 26,
+              fontWeight: FontWeight.w800,
+              letterSpacing: 1),
         ),
+        centerTitle: true,
       ),
+
+      // body
       body: SingleChildScrollView(
         child: Center(
             child: Column(
           children: [
+            Text('宠物身份证'),
             Container(
               height: 200,
               child: PageViewDemo(),

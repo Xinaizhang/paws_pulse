@@ -24,7 +24,8 @@ class CustomAlertDialog extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.7), // 半透明白色背景
+              color:
+                  Theme.of(context).colorScheme.secondaryContainer, // 半透明白色背景
               borderRadius: BorderRadius.circular(12.0),
             ),
             child: Column(
@@ -33,7 +34,9 @@ class CustomAlertDialog extends StatelessWidget {
                 Text(
                   title,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18),
+                  style: TextStyle(
+                      fontSize: 18,
+                      color: Theme.of(context).colorScheme.onPrimaryContainer),
                 ),
                 SizedBox(height: 15),
                 ElevatedButton(

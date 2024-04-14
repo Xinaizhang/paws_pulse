@@ -167,7 +167,7 @@ class _SignInPageState extends State<SignInPage> {
                       onPressed: () {
                         Navigator.pushNamed(
                           context,
-                          '/signUp',
+                          '/sign_up',
                         );
                       },
                       style: ButtonStyle(
