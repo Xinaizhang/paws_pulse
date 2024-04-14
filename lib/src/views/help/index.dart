@@ -1,105 +1,101 @@
+// help.dart
 import 'package:flutter/material.dart';
+import './card_filter.dart';
+import './card_list.dart';
 
-class HelpPage extends StatelessWidget {
+class HelpPage extends StatefulWidget {
+  @override
+  State<HelpPage> createState() => _HelpPageState();
+}
+
+class _HelpPageState extends State<HelpPage> {
+  // CardFilter返回值，1-推荐 2-附近 3-最新，默认为1
+  int filterOption = 1;
+
+  void updateFilter(int newFilter) {
+    setState(() {
+      filterOption = newFilter;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // 定义选中时的标签样式
     final TextStyle selectedTabStyle = TextStyle(
-      fontSize: 20,
-      color: Colors.black,
+      fontSize: 22,
+      color: Theme.of(context).colorScheme.onBackground,
       fontWeight: FontWeight.bold,
     );
     // 定义未选中时的标签样式
     final TextStyle unselectedTabStyle = TextStyle(
       fontSize: 18,
-      color: Colors.black54,
+      color: Theme.of(context).colorScheme.onBackground.withOpacity(0.6),
+      fontWeight: FontWeight.bold,
     );
 
-    // TabBar的背景色
-    final Color tabBarBackgroundColor = Colors.white;
-
     return DefaultTabController(
-      length: 3, // 你有三个 tab
+      length: 3, // 有3个tab
       child: Scaffold(
+        backgroundColor:
+            Theme.of(context).colorScheme.tertiaryContainer.withOpacity(0.3),
+
+        // appBar
         appBar: AppBar(
           title:
-              const Text('互助', style: TextStyle(fontWeight: FontWeight.w800)),
+              const Text('互助中心', style: TextStyle(fontWeight: FontWeight.w800)),
+          centerTitle: true,
           backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-          actions: [IconButton(icon: Icon(Icons.add), onPressed: () {})],
-          bottom: PreferredSize(
-            preferredSize: Size.fromHeight(35.0), // 高度需要手动设置
-            child: Container(
-              color: tabBarBackgroundColor,
-              child: TabBar(
-                isScrollable: true, // 设为可滚动
-                labelPadding: EdgeInsets.symmetric(
-                    horizontal: 15.0), // 两侧的padding可以根据需求调整
-                labelStyle: selectedTabStyle,
-                unselectedLabelStyle: unselectedTabStyle,
-                indicator: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5), // 圆角度可以根据需求调整
-                  color: Theme.of(context)
-                      .colorScheme
-                      .tertiaryContainer, // 指示器颜色也可以根据需求调整
-                ),
-                tabs: [
-                  Tab(text: '帮遛'),
-                  Tab(text: '寄养'),
-                  Tab(text: '相亲'),
-                ],
-              ),
-            ),
-          ),
+          actions: [
+            IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/add_help',
+                  );
+                })
+          ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: TabBarView(
-            children: [
-              // 对应 “帮遛” tab 的内容
-              Column(
-                children: [
-                  // 互助帖卡片
-                  Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        children: [
-                          ListTile(
-                            leading: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                  'https://gallery.pawspulse.top/pawspulse/labuladuo.jpg'),
-                            ),
-                            title: Text('2岁金毛寻找搭档'),
-                            subtitle: Text('上海 杨浦'),
-                            trailing: Chip(
-                              label: Text('45元/次'),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Chip(
-                                avatar: Icon(Icons.pets),
-                                label: Text('Jun'),
-                              ),
-                              TextButton(
-                                onPressed: () {},
-                                child: const Text('申请接单'),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  // ... 其他卡片组件
-                ],
-              ),
 
-              // 对应 “寄养” tab 的内容
-              Center(child: Text('寄养内容')),
-              // 对应 “相亲” tab 的内容
-              Center(child: Text('相亲内容')),
+        // body
+        body: Container(
+          child: Column(
+            children: [
+              // TabBar1
+              Container(
+                color: Theme.of(context).colorScheme.background,
+                child: TabBar(
+                  labelStyle: selectedTabStyle,
+                  unselectedLabelStyle: unselectedTabStyle,
+                  indicator: UnderlineTabIndicator(
+                    borderSide: BorderSide(
+                      width: 18.0,
+                      color: Theme.of(context).colorScheme.tertiaryContainer,
+                    ),
+                    insets: EdgeInsets.only(bottom: 6),
+                  ),
+                  tabs: [
+                    Tab(text: '帮遛'),
+                    Tab(text: '寄养'),
+                    Tab(text: '相亲'),
+                  ],
+                ),
+              ),
+          
+              // 筛选框，1-推荐 2-附近 3-最新
+              CardFilter(onFilterChange: updateFilter),
+
+              // TabBarView部分
+              Expanded(
+                child: TabBarView(
+                  children: [
+                    // 使用新的CardList组件替代原来直接调用HelpCard的代码
+                    CardList(tabIndex: 0, filterOption: filterOption),
+                    CardList(tabIndex: 1, filterOption: filterOption),
+                    CardList(tabIndex: 2, filterOption: filterOption),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

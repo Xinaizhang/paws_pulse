@@ -1,5 +1,6 @@
 // app.dart
 import 'package:flutter/material.dart';
+import 'package:paws_pulse/src/views/help_add/index.dart';
 import 'package:paws_pulse/src/views/index.dart';
 import 'package:paws_pulse/src/common/index.dart';
 
@@ -10,8 +11,10 @@ class App extends StatelessWidget {
       routes: {
         //'/': (context) => const SignInPage(),
         '/': (context) => NavPage(),
-        '/signUp': (context) => SignUpPage(),
+        '/sign_up': (context) => SignUpPage(),
         '/nav': (context) => NavPage(),
+        '/add_help': ((context) => AddHelpPage()),
+        '/help_detail': ((context) => HelpDetailPage()), 
       },
       title: 'PawsPulse',
       // 设置亮色主题
@@ -20,7 +23,7 @@ class App extends StatelessWidget {
         useMaterial3: true,
         // 设置主题色
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Color.fromRGBO(213, 164, 0, 1),
+          seedColor: Color.fromRGBO(235, 180, 0, 1),
           //seedColor: Color.fromRGBO(17, 114, 162, 1),
         ),
         // 设置全局默认字体

@@ -5,7 +5,11 @@ class CommunityPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('宠物社区'),
+        title:
+            const Text('宠物社区', style: TextStyle(fontWeight: FontWeight.w800)),
+        centerTitle: true,
+        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+        actions: [IconButton(icon: Icon(Icons.add), onPressed: () {})],
       ),
       body: Container(
           color: Colors.amber,
