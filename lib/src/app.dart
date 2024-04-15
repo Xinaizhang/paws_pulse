@@ -1,6 +1,5 @@
 // app.dart
 import 'package:flutter/material.dart';
-import 'package:paws_pulse/src/views/help_add/index.dart';
 import 'package:paws_pulse/src/views/index.dart';
 import 'package:paws_pulse/src/common/index.dart';
 
@@ -15,6 +14,7 @@ class App extends StatelessWidget {
         '/nav': (context) => NavPage(),
         '/add_help': ((context) => AddHelpPage()),
         '/help_detail': ((context) => HelpDetailPage()), 
+        '/my_help': ((context) => MyHelpPage()), 
       },
       title: 'PawsPulse',
       // 设置亮色主题
