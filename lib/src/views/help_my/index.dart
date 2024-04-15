@@ -12,7 +12,9 @@ class _MyHelpPageState extends State<MyHelpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("我的互助"),
+        title: Text("我的互助", style: TextStyle(fontWeight: FontWeight.w800)),
+        centerTitle: true,
+        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.emoji_objects),

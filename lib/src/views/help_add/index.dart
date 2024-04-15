@@ -12,7 +12,9 @@ class _AddHelpPageState extends State<AddHelpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("发布互助"),
+        title: Text("发布互助", style: TextStyle(fontWeight: FontWeight.w800)),
+        centerTitle: true,
+        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.emoji_objects),
