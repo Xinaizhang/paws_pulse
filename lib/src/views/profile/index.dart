@@ -1,4 +1,4 @@
-// profile.dart
+// profile - index.dart
 import 'package:flutter/material.dart';
 import './setting.dart';
 import './overview.dart';
@@ -48,7 +48,7 @@ class ProfilePage extends StatelessWidget {
                         color: Theme.of(context).colorScheme.surfaceVariant,
                         spreadRadius: 3, // 阴影的大小
                         blurRadius: 3, // 阴影模糊度的大小，值越大阴影范围也越大，但也更透明
-                        offset: Offset(0, -3), // 阴影分别在水平和垂直方向上的偏移量
+                        offset: Offset(0, -2), // 阴影分别在水平和垂直方向上的偏移量
                       ),
                     ],
                   ),
