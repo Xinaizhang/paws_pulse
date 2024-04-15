@@ -49,6 +49,7 @@ class _PageViewDemoState extends State<PageViewDemo> {
 
   // 创建PageController实例
   final PageController pageController = PageController();
+  int currentPageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -63,16 +64,24 @@ class _PageViewDemoState extends State<PageViewDemo> {
             children: [
               // 点击时向左翻页
               IconButton(
-                icon: Icon(Icons.arrow_back_ios_rounded, size: 17),
-                onPressed: () {
-                  // 如果当前页不是第一页，那么执行向左翻页
-                  if (pageController.page! > 0) {
-                    pageController.previousPage(
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                  }
-                },
+                icon: Icon(
+                  Icons.arrow_back_ios_rounded,
+                  size: 17,
+                  color: currentPageIndex > 0
+                      ? Theme.of(context).colorScheme.onBackground
+                      : Theme.of(context)
+                          .colorScheme
+                          .onBackground
+                          .withOpacity(0.3),
+                ),
+                onPressed: currentPageIndex > 0
+                    ? () {
+                        pageController.previousPage(
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                        );
+                      }
+                    : null,
               ),
               Text(
                 '宠物身份证',
@@ -80,16 +89,24 @@ class _PageViewDemoState extends State<PageViewDemo> {
               ),
               // 点击时向右翻页
               IconButton(
-                icon: Icon(Icons.arrow_forward_ios_rounded, size: 17),
-                onPressed: () {
-                  // 如果当前页不是最后一页，那么执行向右翻页
-                  if (pageController.page! < mockData.length - 1) {
-                    pageController.nextPage(
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                  }
-                },
+                icon: Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  size: 17,
+                  color: currentPageIndex < mockData.length - 1
+                      ? Theme.of(context).colorScheme.onBackground
+                      : Theme.of(context)
+                          .colorScheme
+                          .onBackground
+                          .withOpacity(0.3),
+                ),
+                onPressed: currentPageIndex < mockData.length - 1
+                    ? () {
+                        pageController.nextPage(
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                        );
+                      }
+                    : null,
               ),
             ],
           ),
@@ -97,6 +114,11 @@ class _PageViewDemoState extends State<PageViewDemo> {
             child: PageView(
               controller: pageController, // 应用PageController
               scrollDirection: Axis.horizontal,
+              onPageChanged: (index) {
+                setState(() {
+                  currentPageIndex = index; // 更新当前页码
+                });
+              },
               children: mockData.map((data) {
                 return Container(
                   padding: EdgeInsets.symmetric(horizontal: 30),

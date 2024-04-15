@@ -1,18 +1,18 @@
-// help_add - index.dart
+// help_my - index.dart
 import 'package:flutter/material.dart';
 import '../../common/alert_dialog.dart';
 
-class AddHelpPage extends StatefulWidget {
+class MyHelpPage extends StatefulWidget {
   @override
-  State<AddHelpPage> createState() => _AddHelpPageState();
+  State<MyHelpPage> createState() => _MyHelpPageState();
 }
 
-class _AddHelpPageState extends State<AddHelpPage> {
+class _MyHelpPageState extends State<MyHelpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("发布互助", style: TextStyle(fontWeight: FontWeight.w800)),
+        title: Text("我的互助", style: TextStyle(fontWeight: FontWeight.w800)),
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
         actions: <Widget>[
