@@ -1,11 +1,43 @@
-// my_baby.dart
+// profile - my_baby.dart
 import 'package:flutter/material.dart';
+import './baby_card.dart';
 
 class MyBaby extends StatelessWidget {
+
+  final List<Map<String, dynamic>> mockData = [
+    {
+      'petAvatarUrl': 'http://gallery.pawspulse.top/pawspulse/blue.png',
+      'name': '小灰灰',
+      'petType': 0, // 0-猫，1-狗
+      'gender': 1, // 0-女，1-男
+      'age': '1岁3个月',
+      'breed': '蓝猫',
+    },
+    {
+      'petAvatarUrl': 'http://gallery.pawspulse.top/pawspulse/labuladuo.jpg',
+      'name': '大黄黄',
+      'petType': 1, // 0-猫，1-狗
+      'gender': 0, // 0-女，1-男
+      'age': '1岁3个月',
+      'breed': '拉布拉多',
+    },
+    {
+      'petAvatarUrl': 'http://gallery.pawspulse.top/pawspulse/orange.png',
+      'name': '小黄黄',
+      'petType': 0, // 0-猫，1-狗
+      'gender': 0, // 0-女，1-男
+      'age': '5个月',
+      'breed': '金渐层',
+    },
+    // ... 添加更多宠物数据
+  ];
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 260,
+      padding: EdgeInsets.symmetric(vertical: 6),
+      height: 250,
       child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -13,82 +45,32 @@ class MyBaby extends StatelessWidget {
             Text(
               '我的baby',
               style: TextStyle(
-                fontSize: 22,
+                fontSize: 20,
                 letterSpacing: 1.2,
                 fontWeight: FontWeight.w700,
                 color: Theme.of(context).colorScheme.primary,
               ),
             ),
-            // SizedBox(height: 15),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: ConstrainedBox(
                 constraints: BoxConstraints(
                   minWidth: MediaQuery.of(context).size.width, // 设置最小宽度为屏幕宽度
                 ),
-                child: Row(
-                  children: [
-                    Container(
-                      height: 190,
-                      width: 130,
-                      alignment: Alignment.topRight,
-                      margin: EdgeInsets.only(right: 18),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.tertiaryContainer,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(90),
-                          bottomRight: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                        ),
-                      ),
-                      child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            'http://gallery.pawspulse.top/pawspulse/blue.png'),
-                        radius: 30.0,
-                      ),
-                    ),
-                    Container(
-                      height: 190,
-                      width: 130,
-                      alignment: Alignment.topRight,
-                      margin: EdgeInsets.only(right: 18),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.tertiaryContainer,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(6),
-                          topRight: Radius.circular(90),
-                          bottomRight: Radius.circular(6),
-                          bottomLeft: Radius.circular(6),
-                        ),
-                      ),
-                      child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            'http://gallery.pawspulse.top/pawspulse/blue.png'),
-                        radius: 30.0,
-                      ),
-                    ),
-                    Container(
-                      height: 190,
-                      width: 130,
-                      alignment: Alignment.topRight,
-                      margin: EdgeInsets.only(right: 18),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.tertiaryContainer,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(6),
-                          topRight: Radius.circular(90),
-                          bottomRight: Radius.circular(6),
-                          bottomLeft: Radius.circular(6),
-                        ),
-                      ),
-                      child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            'http://gallery.pawspulse.top/pawspulse/blue.png'),
-                        radius: 30.0,
-                      ),
-                    ),
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Row(
+                    children: mockData.map((data) {
+                      return BabyCard(
+                        petAvatarUrl: data['petAvatarUrl'],
+                        name: data['name'],
+                        petType: data['petType'],
+                        gender: data['gender'],
+                        age: data['age'],
+                        breed: data['breed'],
+                      );
+                    }).toList(),
+                  ),
                 ),
               ),
             )

@@ -25,13 +25,13 @@ class App extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(
           seedColor: Color.fromRGBO(235, 180, 0, 1),
           //seedColor: Color.fromRGBO(17, 114, 162, 1),
+          //seedColor: Color.fromRGBO(140, 58, 255, 1),
         ),
         // 设置全局默认字体
         fontFamily: 'notoSansSC',
       ),
       darkTheme: ThemeData(colorScheme: darkColorScheme, useMaterial3: true),
       debugShowCheckedModeBanner: false,
-      //home: SignInPage(),
     );
   }
 }

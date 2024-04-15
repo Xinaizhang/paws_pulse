@@ -21,22 +21,11 @@ class HomePage extends StatelessWidget {
 
       // body
       body: SingleChildScrollView(
-        child: Center(
-            child: Column(
+        child: Column(
           children: [
-            Text('宠物身份证'),
-            Container(
-              height: 200,
-              child: PageViewDemo(),
-            ),
-            ElevatedButton(
-              child: Text('主页'),
-              onPressed: () {
-                print("主页");
-              },
-            ),
+            PageViewDemo(),
           ],
-        )),
+        ),
       ),
     );
   }
