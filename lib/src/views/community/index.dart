@@ -1,6 +1,23 @@
 import 'package:flutter/material.dart';
+import 'community_filter.dart';
+import 'community_list.dart';
 
-class CommunityPage extends StatelessWidget {
+class CommunityPage extends StatefulWidget {
+  @override
+  _CommunityPageState createState() => _CommunityPageState();
+}
+
+class _CommunityPageState extends State<CommunityPage> {
+  List<String> selectedFilters = []; // 处理多个标签
+  String selectedOption = '默认';
+
+  void _handleFilterChange(List<String> tags, String option) {
+    setState(() {
+      selectedFilters = tags;
+      selectedOption = option;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,26 +30,21 @@ class CommunityPage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
         actions: [
           IconButton(
-              icon: Icon(Icons.person_pin_rounded),
-              onPressed: () {
-                Navigator.pushNamed(
-                  context,
-                  '/my_help',
-                );
-              }),
+            icon: Icon(Icons.person_pin_rounded),
+            onPressed: () => Navigator.pushNamed(context, '/my_help'),
+          ),
           IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () {
-                Navigator.pushNamed(
-                  context,
-                  '/add_help',
-                );
-              }),
+            icon: Icon(Icons.add),
+            onPressed: () => Navigator.pushNamed(context, '/add_help'),
+          ),
         ],
       ),
-      body: Container(
-          color: Colors.amber,
-          child: Text('hahah')),
+      body: Column(
+        children: [
+          CommunityFilter(onFilterSelected: _handleFilterChange),
+          Expanded(child: CommunityList(selectedTags: selectedFilters)),
+        ],
+      ),
     );
   }
 }

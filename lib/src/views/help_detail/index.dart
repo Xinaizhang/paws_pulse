@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import './title.dart';
 import './owner.dart';
-import '../home/pet_id_card.dart';
+import '../../common/pet_id_card.dart';
 
 class HelpDetailPage extends StatefulWidget {
   @override

@@ -1,7 +1,7 @@
 // help.dart
 import 'package:flutter/material.dart';
-import './card_filter.dart';
-import './card_list.dart';
+import '../../common/card_filter.dart';
+import 'help_card_list.dart';
 
 class HelpPage extends StatefulWidget {
   @override
@@ -12,9 +12,11 @@ class _HelpPageState extends State<HelpPage> {
   // CardFilter返回值，1-推荐 2-附近 3-最新，默认为1
   int filterOption = 1;
 
-  void updateFilter(int newFilter) {
+  String _currentFilter = '推荐'; // 这里设置默认筛选为推荐
+
+  void _handleFilterChange(String newFilter) {
     setState(() {
-      filterOption = newFilter;
+      _currentFilter = newFilter; // 更新当前筛选选项
     });
   }
 
@@ -91,7 +93,10 @@ class _HelpPageState extends State<HelpPage> {
               ),
           
               // 筛选框，1-推荐 2-附近 3-最新
-              CardFilter(onFilterChange: updateFilter),
+              CardFilter(
+                onFilterChange: _handleFilterChange,
+                tags: ['推荐', '附近', '最新'], // 传递要显示的标签列表
+              ),
 
               // TabBarView部分
               Expanded(

@@ -3,21 +3,33 @@ import 'package:flutter/material.dart';
 
 class CardFilter extends StatefulWidget {
   // 回调函数，用于当筛选选项改变时通知父组件。
-  final Function(int) onFilterChange;
+  final Function(String) onFilterChange;
+  // 标签列表
+  final List<String> tags;
 
   // 构造函数
-  CardFilter({required this.onFilterChange});
+  CardFilter({required this.onFilterChange, required this.tags});
 
   @override
   State<CardFilter> createState() => _CardFilterState();
 }
 
 class _CardFilterState extends State<CardFilter> {
-  // 当前选中的筛选选项的索引，默认为 1-推荐。
-  int _selectedFilter = 1;
+  // 当前选中的筛选选项，默认为列表的第一个元素。
+  String _selectedFilter;
+
+  _CardFilterState() : _selectedFilter = '';
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.tags.isNotEmpty) {
+      _selectedFilter = widget.tags[0]; // 默认选中第一个标签
+    }
+  }
 
   // 当筛选选项被选择时调用此函数，更新状态并通知父组件。
-  void _handleFilterChange(int filter) {
+  void _handleFilterChange(String filter) {
     setState(() {
       _selectedFilter = filter; // 设置新的选中筛选项
     });
@@ -28,23 +40,20 @@ class _CardFilterState extends State<CardFilter> {
   Widget build(BuildContext context) {
     // 构建整个筛选栏的UI布局
     return Container(
-      color: Theme.of(context).colorScheme.background,
-      padding: EdgeInsets.only(left: 12),
+      //color: Theme.of(context).colorScheme.background,
+      padding: EdgeInsets.only(left: 4),
       height: 45,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          _buildFilterButton(context, '推荐', 1),
-          _buildFilterButton(context, '附近', 2),
-          _buildFilterButton(context, '最新', 3),
-        ],
+        children:
+            widget.tags.map((tag) => _buildFilterButton(context, tag)).toList(),
       ),
     );
   }
 
-  Widget _buildFilterButton(BuildContext context, String text, int filter) {
+  Widget _buildFilterButton(BuildContext context, String tag) {
     // 判断当前按钮是否被选中
-    bool isSelected = _selectedFilter == filter;
+    bool isSelected = _selectedFilter == tag;
 
     // 设置文本样式
     TextStyle textStyle = TextStyle(
@@ -57,7 +66,7 @@ class _CardFilterState extends State<CardFilter> {
     );
 
     return InkWell(
-      onTap: () => _handleFilterChange(filter), // 设置点击事件
+      onTap: () => _handleFilterChange(tag), // 设置点击事件
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 0, horizontal: 14),
         margin: EdgeInsets.only(bottom: 4),
@@ -65,7 +74,7 @@ class _CardFilterState extends State<CardFilter> {
           alignment: Alignment.bottomCenter, // 子组件对齐到底部中心
           children: [
             Text(
-              text,
+              tag,
               style: textStyle,
             ),
             // 使用Positioned包裹下划线，确保它位于文本底部
@@ -77,7 +86,8 @@ class _CardFilterState extends State<CardFilter> {
                 visible: isSelected, // 是否可见
                 child: Container(
                   height: 4,
-                  color: Theme.of(context).colorScheme.tertiaryContainer,
+                  color:
+                      Theme.of(context).colorScheme.tertiary.withOpacity(0.8),
                 ),
               ),
             ),

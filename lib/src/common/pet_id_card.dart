@@ -39,20 +39,20 @@ class PetIdCard extends StatelessWidget {
           : Theme.of(context).colorScheme.secondary,
       fontSize: 15,
       letterSpacing: 1,
-      height: 1.8,
+      height: 1.5,
     );
     TextStyle textStyle = TextStyle(
       fontWeight: FontWeight.normal,
       color: Theme.of(context).colorScheme.onBackground,
-      fontSize: 17,
-      height: 1.8,
+      fontSize: 16,
+      height: 1.5,
     );
     TextStyle idStyle = TextStyle(
       fontWeight: FontWeight.normal,
       color: Theme.of(context).colorScheme.onBackground,
       fontSize: 17,
-      height: 1.8,
-      letterSpacing: 4,
+      height: 1.5,
+      letterSpacing: 2,
     );
     TextStyle qrStyle = TextStyle(
       fontWeight: FontWeight.normal,
@@ -66,7 +66,7 @@ class PetIdCard extends StatelessWidget {
 
     return Container(
       width: 420,
-      height: 270,
+      height: 250,
       padding: EdgeInsets.symmetric(horizontal: 24), // 内边距
       alignment: Alignment.center,
       decoration: BoxDecoration(
@@ -97,10 +97,10 @@ class PetIdCard extends StatelessWidget {
                 shape: CircleBorder(), // 指定形状为圆形
                 child: CircleAvatar(
                   backgroundImage: NetworkImage(petAvatarUrl),
-                  radius: 65,
+                  radius: 50,
                 ),
               ),
-              SizedBox(width: 30),
+              SizedBox(width: 15),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

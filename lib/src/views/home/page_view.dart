@@ -1,6 +1,6 @@
 // home - page_view.dart
 import 'package:flutter/material.dart';
-import './pet_id_card.dart';
+import '../../common/pet_id_card.dart';
 
 class PageViewDemo extends StatefulWidget {
   @override
@@ -121,7 +121,7 @@ class _PageViewDemoState extends State<PageViewDemo> {
               },
               children: mockData.map((data) {
                 return Container(
-                  padding: EdgeInsets.symmetric(horizontal: 30),
+                  padding: EdgeInsets.symmetric(horizontal: 20),
                   alignment: Alignment.center,
                   child: PetIdCard(
                     name: data['name']!,
