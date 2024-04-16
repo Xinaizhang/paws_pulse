@@ -4,7 +4,7 @@ import './help_card.dart';
 
 class CardList extends StatelessWidget {
   final int tabIndex; // 当前选中的tab索引
-  final int filterOption; // 当前选中的筛选选项
+  final String filterOption; // 当前选中的筛选选项
 
   CardList({
     super.key,

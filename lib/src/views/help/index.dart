@@ -9,14 +9,12 @@ class HelpPage extends StatefulWidget {
 }
 
 class _HelpPageState extends State<HelpPage> {
-  // CardFilter返回值，1-推荐 2-附近 3-最新，默认为1
-  int filterOption = 1;
+  final List<String> options = ['推荐', '附近', '最新'];
+  String selectedOption = '推荐';
 
-  String _currentFilter = '推荐'; // 这里设置默认筛选为推荐
-
-  void _handleFilterChange(String newFilter) {
+  void _handleOptionChange(String newOption) {
     setState(() {
-      _currentFilter = newFilter; // 更新当前筛选选项
+      selectedOption = newOption;
     });
   }
 
@@ -92,10 +90,10 @@ class _HelpPageState extends State<HelpPage> {
                 ),
               ),
           
-              // 筛选框，1-推荐 2-附近 3-最新
+              // 筛选框，推荐 附近 最新
               CardFilter(
-                onFilterChange: _handleFilterChange,
-                tags: ['推荐', '附近', '最新'], // 传递要显示的标签列表
+                onFilterChange: _handleOptionChange,
+                tags: options,
               ),
 
               // TabBarView部分
@@ -103,9 +101,9 @@ class _HelpPageState extends State<HelpPage> {
                 child: TabBarView(
                   children: [
                     // 使用新的CardList组件替代原来直接调用HelpCard的代码
-                    CardList(tabIndex: 0, filterOption: filterOption),
-                    CardList(tabIndex: 1, filterOption: filterOption),
-                    CardList(tabIndex: 2, filterOption: filterOption),
+                    CardList(tabIndex: 0, filterOption: selectedOption),
+                    CardList(tabIndex: 1, filterOption: selectedOption),
+                    CardList(tabIndex: 2, filterOption: selectedOption),
                   ],
                 ),
               ),
