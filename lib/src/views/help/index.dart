@@ -44,6 +44,7 @@ class _HelpPageState extends State<HelpPage> {
           title:
               const Text('互助中心', style: TextStyle(fontWeight: FontWeight.w800)),
           centerTitle: true,
+          elevation: 0,
           backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
           actions: [
             IconButton(
@@ -66,8 +67,7 @@ class _HelpPageState extends State<HelpPage> {
         ),
 
         // body
-        body: Container(
-          child: Column(
+        body: Column(
             children: [
               // TabBar1
               Container(
@@ -109,7 +109,6 @@ class _HelpPageState extends State<HelpPage> {
               ),
             ],
           ),
-        ),
       ),
     );
   }

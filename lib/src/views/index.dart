@@ -2,6 +2,9 @@
 export 'nav/index.dart';
 
 export 'community/index.dart';
+export 'community_add/index.dart';
+export 'community_detail/index.dart';
+export 'community_my/index.dart';
 
 export 'home/index.dart';
 
