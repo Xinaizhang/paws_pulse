@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'community_filter.dart';
-import 'community_list.dart';
+import 'community_card_list.dart';
 
 class CommunityPage extends StatefulWidget {
   @override
@@ -27,15 +27,16 @@ class _CommunityPageState extends State<CommunityPage> {
         title:
             const Text('宠物社区', style: TextStyle(fontWeight: FontWeight.w800)),
         centerTitle: true,
+        elevation: 0,
         backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
         actions: [
           IconButton(
             icon: Icon(Icons.person_pin_rounded),
-            onPressed: () => Navigator.pushNamed(context, '/my_help'),
+            onPressed: () => Navigator.pushNamed(context, '/my_community'),
           ),
           IconButton(
             icon: Icon(Icons.add),
-            onPressed: () => Navigator.pushNamed(context, '/add_help'),
+            onPressed: () => Navigator.pushNamed(context, '/add_community'),
           ),
         ],
       ),

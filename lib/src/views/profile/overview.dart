@@ -101,7 +101,7 @@ class UserProfileOverview extends StatelessWidget {
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(
-                            hasPassedExam ? '通过考试' : '未完成考试',
+                            hasPassedExam ? '已通过考试' : '未完成考试',
                             style: TextStyle(
                               color: hasPassedExam
                                   ? Theme.of(context)

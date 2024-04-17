@@ -12,9 +12,14 @@ class App extends StatelessWidget {
         '/': (context) => NavPage(),
         '/sign_up': (context) => SignUpPage(),
         '/nav': (context) => NavPage(),
+        // 互助
         '/add_help': ((context) => AddHelpPage()),
         '/help_detail': ((context) => HelpDetailPage()), 
         '/my_help': ((context) => MyHelpPage()), 
+        // 社区
+        '/add_community': ((context) => AddCommunityPage()),
+        '/community_detail': ((context) => CommunityDetailPage()),
+        '/my_community': ((context) => MyCommunityPage()), 
       },
       title: 'PawsPulse',
       // 设置亮色主题
