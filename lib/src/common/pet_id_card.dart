@@ -65,7 +65,7 @@ class PetIdCard extends StatelessWidget {
     Color iconColor = gender == 1 ? Colors.blue : Colors.pink;
 
     return Container(
-      width: 420,
+      //width: 420,
       height: 250,
       padding: EdgeInsets.symmetric(horizontal: 24), // 内边距
       alignment: Alignment.center,

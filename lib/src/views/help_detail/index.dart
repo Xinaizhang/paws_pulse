@@ -120,7 +120,7 @@ class _HelpDetailPageState extends State<HelpDetailPage> {
           '立即沟通',
           style: TextStyle(fontSize: 16, letterSpacing: 2),
         ),
-        extendedPadding: EdgeInsets.symmetric(horizontal: 150),
+        extendedPadding: EdgeInsets.symmetric(horizontal: 110),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20))),
       ),

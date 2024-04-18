@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class CommunityTagFilter extends StatelessWidget {
   final List<String> tags;
