@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:paws_pulse/src/common/index.dart';
+import './navigation_bar.dart';
 
 class NavPage extends StatefulWidget {
   const NavPage({Key? key}) : super(key: key);
@@ -21,6 +21,7 @@ class _NavPageState extends State<NavPage> {
     print("userName=$userName");
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: pages[_bottomNavigationIndex],
       bottomNavigationBar: navigationBar(_bottomNavigationIndex, (index) {
         setState(() {

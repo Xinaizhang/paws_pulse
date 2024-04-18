@@ -53,6 +53,7 @@ class _CommunityDetailPageState extends State<CommunityDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       //appBar
       appBar: AppBar(
         title: UserInfo(userData: mockData),

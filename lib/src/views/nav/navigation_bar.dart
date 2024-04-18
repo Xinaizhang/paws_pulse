@@ -1,6 +1,6 @@
 // bottomNavigationBar.dart
 import 'package:flutter/material.dart';
-import '../views/index.dart';
+import '../index.dart';
 
 //底部导航页-切换页面
 final pages = [
