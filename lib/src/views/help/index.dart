@@ -71,6 +71,7 @@ class _HelpPageState extends State<HelpPage> {
             children: [
               // TabBar1
               Container(
+              padding: EdgeInsets.only(right: 200, top: 4),
                 color: Theme.of(context).colorScheme.background,
                 child: TabBar(
                   labelStyle: selectedTabStyle,

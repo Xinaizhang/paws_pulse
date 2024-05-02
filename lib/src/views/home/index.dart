@@ -1,6 +1,7 @@
 // home.dart
 import 'package:flutter/material.dart';
-import './page_view.dart';
+import './pet_id_card.dart';
+import './pet_manage.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -23,7 +24,9 @@ class HomePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            PageViewDemo(),
+            PetIDCard(),
+            PetManage(),
+
           ],
         ),
       ),

@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 import '../../common/pet_id_card.dart';
 
-class PageViewDemo extends StatefulWidget {
+class PetIDCard extends StatefulWidget {
   @override
-  State<PageViewDemo> createState() => _PageViewDemoState();
+  State<PetIDCard> createState() => _PetIDCardState();
 }
 
-class _PageViewDemoState extends State<PageViewDemo> {
+class _PetIDCardState extends State<PetIDCard> {
   final List<Map<String, dynamic>> mockData = [
     {
       'name': '大黄黄',
