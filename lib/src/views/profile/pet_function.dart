@@ -37,7 +37,7 @@ class PetFunction extends StatelessWidget {
                 '宠物品种识别',
               ),
               _buildFunctionEntry(
-                AssetIcons.logoFriend, // Icon for pet friend application
+                AssetIcons.logoFriends, // Icon for pet friend application
                 '宠物好友申请',
               ),
             ],
@@ -64,7 +64,7 @@ class PetFunction extends StatelessWidget {
         SizedBox(height: 4),
         Text(
           label,
-          style: TextStyle(fontSize: 14),
+          style: TextStyle(fontSize: 13),
         ),
       ],
     );

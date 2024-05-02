@@ -7,7 +7,7 @@ class UserProfileOverview extends StatelessWidget {
   final bool hasPassedExam;
   final String userId;
   final String region;
-  final double BarHeight;
+  final double barHeight;
   final VoidCallback onSettingsPressed;
 
   const UserProfileOverview({
@@ -17,7 +17,7 @@ class UserProfileOverview extends StatelessWidget {
     required this.hasPassedExam,
     required this.userId,
     required this.region,
-    required this.BarHeight,
+    required this.barHeight,
     required this.onSettingsPressed,
   }) : super(key: key);
 
@@ -25,7 +25,7 @@ class UserProfileOverview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 280,
-      padding: EdgeInsets.only(left: 24, right: 24, top: BarHeight, bottom: 40),
+      padding: EdgeInsets.only(left: 24, right: 24, top: barHeight, bottom: 40),
       alignment: Alignment.bottomLeft,
       // 设置壁纸样式
       decoration: BoxDecoration(
@@ -33,7 +33,7 @@ class UserProfileOverview extends StatelessWidget {
           image:
               NetworkImage('http://gallery.pawspulse.top/pawspulse/orange.png'),
           fit: BoxFit.cover,
-          opacity: 0.5,
+          opacity: 0.4,
           // 添加颜色滤镜
           // colorFilter: ColorFilter.mode(
           //   Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.1),
@@ -155,6 +155,7 @@ class UserProfileOverview extends StatelessWidget {
                       '123',
                       style: TextStyle(
                         fontSize: 16,
+                        fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
@@ -162,7 +163,7 @@ class UserProfileOverview extends StatelessWidget {
                       '关注',
                       style: TextStyle(
                         fontSize: 16,
-                        color: Theme.of(context).colorScheme.secondary,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
                   ],
@@ -173,6 +174,7 @@ class UserProfileOverview extends StatelessWidget {
                       '22',
                       style: TextStyle(
                         fontSize: 16,
+                        fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
@@ -180,7 +182,7 @@ class UserProfileOverview extends StatelessWidget {
                       '粉丝',
                       style: TextStyle(
                         fontSize: 16,
-                        color: Theme.of(context).colorScheme.secondary,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
                   ],
@@ -191,6 +193,7 @@ class UserProfileOverview extends StatelessWidget {
                       '13',
                       style: TextStyle(
                         fontSize: 16,
+                        fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
@@ -198,7 +201,7 @@ class UserProfileOverview extends StatelessWidget {
                       '发布',
                       style: TextStyle(
                         fontSize: 16,
-                        color: Theme.of(context).colorScheme.secondary,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
                   ],

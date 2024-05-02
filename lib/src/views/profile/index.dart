@@ -16,7 +16,7 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor:
-          Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.3),
+          Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.25),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -26,7 +26,7 @@ class ProfilePage extends StatelessWidget {
               hasPassedExam: false,
               userId: '123456',
               region: '上海 杨浦',
-              BarHeight: statusBarHeight,
+              barHeight: statusBarHeight,
               onSettingsPressed: () {
                 print("设置按钮被点击了");
                 _scaffoldKey.currentState?.openEndDrawer();
