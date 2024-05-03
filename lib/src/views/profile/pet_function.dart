@@ -27,18 +27,34 @@ class PetFunction extends StatelessWidget {
               _buildFunctionEntry(
                 AssetIcons.logoQuiz, // Icon for pet knowledge quiz
                 '宠物知识测试',
+                () {
+                  // 点击宠物知识测试的事件
+                  Navigator.pushNamed(context, '/pet_knowledge_test');
+                },
               ),
               _buildFunctionEntry(
                 AssetIcons.logoEncyclopedia, // Icon for pet encyclopedia
                 '宠物百科',
+                () {
+                  // 点击宠物百科的事件
+                  Navigator.pushNamed(context, '/pet_encyclopedia');
+                },
               ),
               _buildFunctionEntry(
                 AssetIcons.logoPhoto, // Icon for pet knowledge quiz
                 '宠物品种识别',
+                () {
+                  // 点击宠物品种识别的事件
+                  Navigator.pushNamed(context, '/image_recognition');
+                },
               ),
               _buildFunctionEntry(
                 AssetIcons.logoFriends, // Icon for pet friend application
                 '宠物好友申请',
+                () {
+                  // 点击宠物好友申请的事件
+                  Navigator.pushNamed(context, '/pet_friend_application');
+                },
               ),
             ],
           ),
@@ -48,25 +64,29 @@ class PetFunction extends StatelessWidget {
     );
   }
 
-  Widget _buildFunctionEntry(String iconPath, String label) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        ClipRRect(
-          borderRadius:
-              BorderRadius.circular(12), // Adjust the corner radius as needed
-          child: Image.asset(
-            iconPath,
-            width: 60,
-            height: 60,
+  Widget _buildFunctionEntry(
+      String iconPath, String label, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ClipRRect(
+            borderRadius:
+                BorderRadius.circular(12), // Adjust the corner radius as needed
+            child: Image.asset(
+              iconPath,
+              width: 60,
+              height: 60,
+            ),
           ),
-        ),
-        SizedBox(height: 4),
-        Text(
-          label,
-          style: TextStyle(fontSize: 13),
-        ),
-      ],
+          SizedBox(height: 4),
+          Text(
+            label,
+            style: TextStyle(fontSize: 13),
+          ),
+        ],
+      ),
     );
   }
 }

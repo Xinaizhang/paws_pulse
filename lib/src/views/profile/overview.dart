@@ -208,26 +208,8 @@ class UserProfileOverview extends StatelessWidget {
                 ),
                 // 编辑资料 按钮
                 ElevatedButton(
-                  onPressed: () {},
-                  // style: ButtonStyle(
-                  //   backgroundColor: MaterialStateProperty.all<Color>(
-                  //     Theme.of(context).colorScheme.primary.withOpacity(0.8),
-                  //   ),
-                  //   foregroundColor: MaterialStateProperty.all<Color>(
-                  //     Theme.of(context).colorScheme.onPrimary,
-                  //   ),
-                  //   overlayColor: MaterialStateProperty.all<Color>(
-                  //     Theme.of(context).colorScheme.primary,
-                  //   ),
-                  //   padding: MaterialStateProperty.all<EdgeInsets>(
-                  //     EdgeInsets.all(18),
-                  //   ),
-                  //   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  //     RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.circular(12),
-                  //     ),
-                  //   ),
-                  // ),
+                  onPressed: () =>
+                      Navigator.pushNamed(context, '/profile_modify'),
                   child: Text('编辑资料'),
                 ),
               ],

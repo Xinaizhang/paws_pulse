@@ -19,6 +19,8 @@ export 'messages/index.dart';
 
 // 个人中心
 export 'profile/index.dart';
+export 'profile_modify/index.dart';
+export 'image_recognition/index.dart';
 
 // 宠物互助
 export 'help/index.dart';

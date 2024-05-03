@@ -20,6 +20,9 @@ class App extends StatelessWidget {
         '/add_community': ((context) => AddCommunityPage()),
         '/community_detail': ((context) => CommunityDetailPage()),
         '/my_community': ((context) => MyCommunityPage()), 
+        // 个人中心
+        '/profile_modify': ((context) => ProfileModifyPage()),
+        '/image_recognition': ((context) => ImageRecognitionPage()),
       },
       title: 'PawsPulse',
       // 设置亮色主题
