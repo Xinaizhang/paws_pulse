@@ -42,14 +42,26 @@ class MyBaby extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              '我的baby',
-              style: TextStyle(
-                fontSize: 20,
-                letterSpacing: 1.2,
-                fontWeight: FontWeight.w700,
-                color: Theme.of(context).colorScheme.primary,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '我的baby',
+                  style: TextStyle(
+                    fontSize: 20,
+                    letterSpacing: 1.2,
+                    fontWeight: FontWeight.w700,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+                // 通过 IconButton 实现添加宠物按钮
+                IconButton(
+                    onPressed: () => Navigator.pushNamed(context, '/add_pet'),
+                    icon: Icon(
+                      Icons.add_circle_outline_rounded,
+                      color: Theme.of(context).colorScheme.primary,
+                    )),
+              ],
             ),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,

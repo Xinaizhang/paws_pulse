@@ -1,5 +1,8 @@
+// profile_modify/index.dart
 import 'package:flutter/material.dart';
+import 'package:city_pickers/city_pickers.dart';
 import 'edit_pop.dart';
+import 'address_picker.dart';
 
 class ProfileModifyPage extends StatefulWidget {
   @override
@@ -55,7 +58,7 @@ class _ProfileModifyPageState extends State<ProfileModifyPage> {
             ),
             SizedBox(height: 28),
 
-            // 昵称 - 点击后出现“编辑昵称”弹窗，用户输入修改后的昵称，底部有两个按钮：取消、保存
+            // 昵称
             EditableField(
               label: '昵称',
               initialValue: mockData['nickname'],
@@ -96,6 +99,7 @@ class _ProfileModifyPageState extends State<ProfileModifyPage> {
             SizedBox(height: 8),
             Divider(),
             SizedBox(height: 8),
+
             // 手机号
             EditableField(
               label: '手机号',
@@ -111,12 +115,11 @@ class _ProfileModifyPageState extends State<ProfileModifyPage> {
             SizedBox(height: 8),
 
             // 地址
-            EditableField(
-              label: '地址',
-              initialValue: mockData['address'],
-              onSave: (newValue) {
+            AddressPicker(
+              initialAddress: mockData['address'],
+              onAddressChanged: (newAddress) {
                 setState(() {
-                  mockData['address'] = newValue;
+                  mockData['address'] = newAddress;
                 });
               },
             ),
@@ -175,11 +178,26 @@ class _ProfileModifyPageState extends State<ProfileModifyPage> {
             ),
             SizedBox(height: 18),
             // 保存按钮
-            ElevatedButton(
-              onPressed: () {
-                // 保存按钮的点击事件
-              },
-              child: Text('保存'),
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // 修改密码按钮的点击事件
+                    },
+                    child: Text('修改密码'),
+                  ),
+                ),
+                SizedBox(width: 10),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // 保存按钮的点击事件
+                    },
+                    child: Text('保存'),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

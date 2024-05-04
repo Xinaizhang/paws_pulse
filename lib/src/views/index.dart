@@ -21,6 +21,10 @@ export 'messages/index.dart';
 export 'profile/index.dart';
 export 'profile_modify/index.dart';
 export 'image_recognition/index.dart';
+export 'pet_encyclopedia/index.dart';
+export 'pet_friend_application/index.dart';
+export 'pet_knowledge_test/index.dart';
+export 'add_pet/index.dart';
 
 // 宠物互助
 export 'help/index.dart';

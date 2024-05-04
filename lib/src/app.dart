@@ -1,5 +1,6 @@
 // app.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:paws_pulse/src/views/index.dart';
 import 'package:paws_pulse/src/common/index.dart';
 
@@ -8,8 +9,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        //'/': (context) => const SignInPage(),
-        '/': (context) => NavPage(),
+        '/': (context) => const SignInPage(),
+        //'/': (context) => NavPage(),
         '/sign_up': (context) => SignUpPage(),
         '/nav': (context) => NavPage(),
         // 互助
@@ -23,6 +24,10 @@ class App extends StatelessWidget {
         // 个人中心
         '/profile_modify': ((context) => ProfileModifyPage()),
         '/image_recognition': ((context) => ImageRecognitionPage()),
+        '/pet_encyclopedia': ((context) => PetEncyclopediaPage()),
+        '/pet_friend_application': ((context) => PetFriendApplicationPage()),
+        '/pet_knowledge_test': ((context) => PetKnowledgeTestPage()),
+        '/add_pet': ((context) => AddPetPage()),
       },
       title: 'PawsPulse',
       // 设置亮色主题
@@ -40,6 +45,15 @@ class App extends StatelessWidget {
       ),
       darkTheme: ThemeData(colorScheme: darkColorScheme, useMaterial3: true),
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('zh', ''), // Chinese
+      ],
+      locale: const Locale('zh', ''), // Set locale to Chinese
     );
   }
 }
