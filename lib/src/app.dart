@@ -12,6 +12,7 @@ class App extends StatelessWidget {
         '/': (context) => const SignInPage(),
         //'/': (context) => NavPage(),
         //'/': (context) => ProfileModifyPage(),
+        '/sign_in': (context) => const SignInPage(),
         '/sign_up': (context) => SignUpPage(),
         '/nav': (context) => NavPage(),
         // 互助

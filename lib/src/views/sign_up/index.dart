@@ -1,5 +1,8 @@
+// sign_up/index.dart
 import 'package:flutter/material.dart';
+import 'dart:async';
 import '../../common/alert_dialog.dart';
+import 'api.dart'; 
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -13,8 +16,12 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
+  final TextEditingController verificationCodeController =
+      TextEditingController();
   bool _passwordVisible = false;
   bool _confirmPasswordVisible = false;
+  Timer? _timer;
+  int _countDown = 0; // 初始倒计时为0
 
   @override
   void dispose() {
@@ -23,13 +30,70 @@ class _SignUpPageState extends State<SignUpPage> {
     emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
+    verificationCodeController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     Color backgroundColor = Theme.of(context).colorScheme.secondaryContainer;
+    
+    // 修改发送验证码按钮部分的代码
+    IconButton sendVerificationCodeButton = IconButton(
+      onPressed: () async {
+        String email = emailController.text.trim();
+        if (email.isEmpty) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => CustomAlertDialog(
+              title: '请输入邮箱',
+              buttonText: '好的',
+            ),
+          );
+        } else {
+          // 如果倒计时尚未结束，则直接返回
+          if (_timer != null && _timer!.isActive) return;
 
+          // 设置倒计时为30秒
+          _countDown = 30;
+
+          // 启动计时器，开始倒计时
+          _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+            setState(() {
+              if (_countDown > 0) {
+                _countDown--;
+              } else {
+                // 倒计时结束，取消计时器
+                _timer!.cancel();
+                _countDown = 0; // 重置倒计时时间
+                _timer = null; // 设置计时器为空，等待下一次点击重新创建计时器
+              }
+            });
+          });
+
+          // 调用发送验证码的函数
+          String message = await sendVerificationCode(email);
+
+          // 显示消息对话框
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => CustomAlertDialog(
+              title: message,
+              buttonText: '好的',
+            ),
+          );
+        }
+      },
+      icon: Text(
+        _countDown > 0 ? '请$_countDown秒后重试 ' : '发送验证码 ',
+        style: TextStyle(
+          color: _countDown > 0 ? Colors.grey : Colors.blue,
+          fontSize: 12,
+        ),
+      ),
+      padding: EdgeInsets.zero,
+      constraints: BoxConstraints(),
+    );
     // 表单
     Widget _buildForm() {
       return Container(
@@ -59,6 +123,25 @@ class _SignUpPageState extends State<SignUpPage> {
                   labelText: '邮箱',
                   hintText: '请输入邮箱',
                   prefixIcon: Icon(Icons.mail_outlined),
+                  suffixIcon: sendVerificationCodeButton,
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 15),
+
+              // 验证码
+              TextFormField(
+                controller: verificationCodeController,
+                onChanged: (value) {
+                  setState(() {});
+                },
+                decoration: InputDecoration(
+                  labelText: '验证码',
+                  hintText: '请输入6位验证码',
+                  prefixIcon: Icon(Icons.lock_outline),
+                  suffixIcon: verificationCodeController.text.length == 6
+                      ? Icon(Icons.done, color: Colors.green)
+                      : SizedBox.shrink(),
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -148,12 +231,20 @@ class _SignUpPageState extends State<SignUpPage> {
                   // 注册按钮
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         String username = usernameController.text.trim();
                         String email = emailController.text.trim();
                         String password = passwordController.text.trim();
+                        String verificationCode =
+                            verificationCodeController.text.trim();
                         String confirmPassword =
                             confirmPasswordController.text.trim();
+                        String message = await registerUser(
+                          username,
+                          email,
+                          password,
+                          verificationCode,
+                        );
 
                         if (username.isEmpty) {
                           // 如果用户名为空，显示提示弹窗
@@ -209,23 +300,33 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           );
                           confirmPasswordController.clear();
-                        } else {
+                        } else if (message == '恭喜！您已成功注册账号！') {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) =>
                                 CustomAlertDialog(
                               title: '恭喜！您已成功注册账号！',
-                              buttonText: '直接登录',
+                              buttonText: '去登录',
                               onPressed: () {
                                 // 先关闭弹窗
                                 Navigator.of(context).pop();
-                                // 然后跳转到 /nav 页面
+                                // 然后跳转到登录页面
                                 Navigator.pushNamed(
                                   context,
-                                  '/nav',
+                                  '/',
                                   arguments: {"userName": username},
                                 );
                               },
+                            ),
+                          );
+                        } else {
+                          // 显示错误消息
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                CustomAlertDialog(
+                              title: message,
+                              buttonText: '好的',
                             ),
                           );
                         }
