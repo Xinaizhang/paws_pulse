@@ -1,7 +1,7 @@
 // profile_modify/index.dart
 import 'package:flutter/material.dart';
-import 'package:city_pickers/city_pickers.dart';
 import 'edit_pop.dart';
+import 'upload_avatar.dart';
 import 'address_picker.dart';
 
 class ProfileModifyPage extends StatefulWidget {
@@ -24,6 +24,12 @@ class _ProfileModifyPageState extends State<ProfileModifyPage> {
     'background': 'http://gallery.pawspulse.top/pawspulse/cat.jpg',
   };
 
+  void _onAvatarUploaded(String newAvatarUrl) {
+    setState(() {
+      mockData['avatar'] = newAvatarUrl;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,16 +48,9 @@ class _ProfileModifyPageState extends State<ProfileModifyPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        image: NetworkImage(mockData['avatar']),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                  UploadAvatar(
+                    avatarUrl: mockData['avatar'],
+                    onAvatarUploaded: _onAvatarUploaded,
                   ),
                 ],
               ),

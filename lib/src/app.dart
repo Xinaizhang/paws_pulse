@@ -11,6 +11,7 @@ class App extends StatelessWidget {
       routes: {
         '/': (context) => const SignInPage(),
         //'/': (context) => NavPage(),
+        //'/': (context) => ProfileModifyPage(),
         '/sign_up': (context) => SignUpPage(),
         '/nav': (context) => NavPage(),
         // 互助
