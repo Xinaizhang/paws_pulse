@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../../common/api_config.dart';
 
 class UploadAvatar extends StatefulWidget {
   final String avatarUrl;
@@ -73,7 +74,7 @@ class _UploadAvatarState extends State<UploadAvatar> {
     if (_image == null) return;
 
     final userId = 1; // 使用真实用户 ID
-    final uri = Uri.parse('http://192.168.110.128:8000/app/upload-avatar/$userId/');
+    final uri = Uri.parse('${ApiConfig.baseUrl}/app/upload-avatar/$userId/');
     final request = http.MultipartRequest('POST', uri);
     request.files.add(await http.MultipartFile.fromPath('avatar', _image!.path));
 

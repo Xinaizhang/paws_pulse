@@ -1,11 +1,52 @@
 // setting.dart
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import './api.dart';
 
 class Setting extends StatelessWidget {
   const Setting({
     super.key,
   });
+
+  Future<void> handleDeleteAccount(BuildContext context) async {
+    print("点击注销用户按钮");
+    // Read the user ID from secure storage
+    final storage = FlutterSecureStorage();
+    String? userId = await storage.read(key: 'id');
+    // Debug print to verify if user ID is retrieved
+    print('Retrieved user ID: $userId');
+
+    Map<String, String> data = await storage.readAll();
+    print(data);
+
+    if (userId != null) {
+      // Call the API to delete the user
+      String result = await deleteUser();
+
+      // Show a message and navigate based on the result
+      if (result == '用户账户成功删除') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(result)),
+        );
+        // Clear secure storage after deleting the user
+        await storage.deleteAll();
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          '/sign_in',
+          (route) => false,
+        );
+      } else {
+        // Show the error message as a snack bar
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(result)),
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('未找到用户ID')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +100,17 @@ class Setting extends StatelessWidget {
                 children: [
                   SizedBox(height: 16),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      // 清除缓存
+                      final storage = FlutterSecureStorage();
+                      await storage.deleteAll();
+
+                      // Debug check if data is removed
+                      Map<String, String> data = await storage.readAll();
+                      print(data); // Should print an empty map
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, '/sign_in', (route) => false);
+                    },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
                         Theme.of(context).colorScheme.primary.withOpacity(0.8),
@@ -93,7 +144,7 @@ class Setting extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => handleDeleteAccount(context),
                     style: ButtonStyle(
                       padding: MaterialStateProperty.all<EdgeInsets>(
                         EdgeInsets.all(18),

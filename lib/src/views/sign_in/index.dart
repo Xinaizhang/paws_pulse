@@ -1,5 +1,8 @@
+// sign_in/index.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../../common/alert_dialog.dart';
+import 'api.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -9,12 +12,64 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-  final TextEditingController usernameController = TextEditingController();
+ 
+  final TextEditingController identifierController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool _passwordVisible = false;
 
+  final storage = FlutterSecureStorage(); // To store secure data
+
+  Future<void> handleLogin() async {
+    print("点击登录按钮");
+    String identifier = identifierController.text.trim();
+    String password = passwordController.text.trim();
+
+    // Validate input
+    if (identifier.isEmpty || password.isEmpty || password.length < 6) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => CustomAlertDialog(
+          title: '请输入有效的用户名或邮箱及密码',
+          buttonText: '好的',
+        ),
+      );
+      return;
+    }
+
+    // Attempt login via API
+    var result = await loginUser(identifier, password);
+
+    if (result['success']) {
+      // Save tokens securely
+      Map<String, dynamic> userData = result['data'];
+      await storage.write(key: 'access_token', value: userData['access']);
+      await storage.write(key: 'refresh_token', value: userData['refresh']);
+      await storage.write(key: 'id', value: userData['id'].toString());
+      await storage.write(key: 'nickname', value: userData['nickname']);
+      await storage.write(key: 'email', value: userData['email']);
+
+      Map<String, String> data = await storage.readAll();
+      print("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+      print(data);
+
+      // Navigate to the main page or dashboard after successful login
+      Navigator.pushNamed(context, '/nav',
+          arguments: {"userName": userData['nickname']});
+    } else {
+      // Show error message if login failed
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => CustomAlertDialog(
+          title: result['message'],
+          buttonText: '好的',
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    double statusBarHeight = MediaQuery.of(context).padding.top;
     Color backgroundColor = Theme.of(context).colorScheme.secondaryContainer;
     
     // 表单
@@ -29,7 +84,7 @@ class _SignInPageState extends State<SignInPage> {
             children: [
               // 用户名或邮箱
               TextFormField(
-                controller: usernameController,
+                controller: identifierController,
                 decoration: InputDecoration(
                   labelText: '用户名 / 邮箱',
                   hintText: '请输入用户名或邮箱',
@@ -94,70 +149,80 @@ class _SignInPageState extends State<SignInPage> {
               Row(
                 children: [
                   // 登录按钮
+                  // Expanded(
+                  //   child: ElevatedButton(
+                  //     onPressed: () {
+                  //       String username = identifierController.text.trim();
+                  //       String password = passwordController.text.trim();
+
+                  //       if (username.isEmpty) {
+                  //         // 如果用户名为空，显示提示弹窗
+                  //         showDialog(
+                  //           context: context,
+                  //           builder: (BuildContext context) =>
+                  //               CustomAlertDialog(
+                  //             title: '请输入用户名或邮箱',
+                  //             buttonText: '好的',
+                  //           ),
+                  //         );
+                  //       } else if (password.isEmpty) {
+                  //         // 如果密码为空，显示提示弹窗
+                  //         showDialog(
+                  //           context: context,
+                  //           builder: (BuildContext context) =>
+                  //               CustomAlertDialog(
+                  //             title: '请输入密码',
+                  //             buttonText: '好的',
+                  //           ),
+                  //         );
+                  //       } else if (password.length < 6) {
+                  //         // 如果密码长度不足6位，显示提示弹窗并清空密码输入框
+                  //         showDialog(
+                  //           context: context,
+                  //           builder: (BuildContext context) =>
+                  //               CustomAlertDialog(
+                  //             title: '密码不符合规范，请重新输入密码',
+                  //             buttonText: '好的',
+                  //           ),
+                  //         );
+                  //         passwordController.clear();
+                  //       } else {
+                  //         // 如果用户名和密码都填写了，导航到下一个页面，并传递用户名作为userId参数
+                  //         Navigator.pushNamed(
+                  //           context,
+                  //           '/nav',
+                  //           arguments: {"userName": username},
+                  //         );
+                  //       }
+                  //     },
+                  //     style: ButtonStyle(
+                  //       backgroundColor: MaterialStateProperty.all<Color>(
+                  //         Theme.of(context)
+                  //             .colorScheme
+                  //             .primary
+                  //             .withOpacity(0.8),
+                  //       ),
+                  //       foregroundColor: MaterialStateProperty.all<Color>(
+                  //         Theme.of(context).colorScheme.onPrimary,
+                  //       ),
+                  //       overlayColor: MaterialStateProperty.all<Color>(
+                  //         Theme.of(context).colorScheme.primary,
+                  //       ),
+                  //       padding: MaterialStateProperty.all<EdgeInsets>(
+                  //         EdgeInsets.all(17),
+                  //       ),
+                  //     ),
+                  //     child: Text('登录', style: TextStyle(fontSize: 16)),
+                  //   ),
+                  // ),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {
-                        String username = usernameController.text.trim();
-                        String password = passwordController.text.trim();
-        
-                        if (username.isEmpty) {
-                          // 如果用户名为空，显示提示弹窗
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) =>
-                                CustomAlertDialog(
-                              title: '请输入用户名或邮箱',
-                              buttonText: '好的',
-                            ),
-                          );
-                        } else if (password.isEmpty) {
-                          // 如果密码为空，显示提示弹窗
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) =>
-                                CustomAlertDialog(
-                              title: '请输入密码',
-                              buttonText: '好的',
-                            ),
-                          );
-                        } else if (password.length < 6) {
-                          // 如果密码长度不足6位，显示提示弹窗并清空密码输入框
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) =>
-                                CustomAlertDialog(
-                              title: '密码不符合规范，请重新输入密码',
-                              buttonText: '好的',
-                            ),
-                          );
-                          passwordController.clear();
-                        } else {
-                          // 如果用户名和密码都填写了，导航到下一个页面，并传递用户名作为userId参数
-                          Navigator.pushNamed(
-                            context,
-                            '/nav',
-                            arguments: {"userName": username},
-                          );
-                        }
-                      },
+                      onPressed: handleLogin,
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                          Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withOpacity(0.8),
-                        ),
-                        foregroundColor: MaterialStateProperty.all<Color>(
-                          Theme.of(context).colorScheme.onPrimary,
-                        ),
-                        overlayColor: MaterialStateProperty.all<Color>(
-                          Theme.of(context).colorScheme.primary,
-                        ),
                         padding: MaterialStateProperty.all<EdgeInsets>(
-                          EdgeInsets.all(17),
-                        ),
+                            const EdgeInsets.all(17)),
                       ),
-                      child: Text('登录', style: TextStyle(fontSize: 16)),
+                      child: const Text('登录', style: TextStyle(fontSize: 16)),
                     ),
                   ),
                   SizedBox(width: 20),
@@ -186,13 +251,15 @@ class _SignInPageState extends State<SignInPage> {
 
     return Scaffold(
       backgroundColor: backgroundColor,
+      resizeToAvoidBottomInset: true,
       body: Padding(
-        padding: EdgeInsets.symmetric(vertical: 65, horizontal: 30),
+        padding: EdgeInsets.symmetric(horizontal: 30),
         child: SingleChildScrollView(
           child: Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                SizedBox(height: statusBarHeight + 40),
                 // logo
                 Text('Welcome to',
                     style: Theme.of(context).textTheme.headlineMedium),
