@@ -30,3 +30,41 @@ Future<String> deleteUser() async {
     return '删除请求失败，请稍后重试';
   }
 }
+
+// 根据id获取用户信息
+Future<Map<String, dynamic>> getUserById() async {
+  final storage = FlutterSecureStorage();
+  final token = await storage.read(key: 'access_token');
+  final id = await storage.read(key: 'id');
+
+  try {
+    var response = await http.get(
+      Uri.parse('${ApiConfig.baseUrl}/app/users/$id/'),
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+    );
+    var decodedResponse = utf8.decode(response.bodyBytes);
+    var responseData = jsonDecode(decodedResponse);
+    print("获取用户信息中......");
+    print(responseData);
+
+    if (response.statusCode == 200) {
+      return {
+        'success': true,
+        'message': '获取用户信息成功',
+        'data': responseData['data'],
+      };
+    } else {
+      return {
+        'success': false,
+        'message': responseData['message'] ?? '获取用户信息失败',
+      };
+    }
+  } catch (e) {
+    return {
+      'success': false,
+      'message': '获取用户信息失败，请稍后重试',
+    };
+  }
+}

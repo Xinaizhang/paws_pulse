@@ -1,8 +1,10 @@
-// profile_modify/index.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'edit_pop.dart';
 import 'upload_avatar.dart';
 import 'address_picker.dart';
+import './api.dart';
+import '../profile/api.dart';
 
 class ProfileModifyPage extends StatefulWidget {
   @override
@@ -10,24 +12,62 @@ class ProfileModifyPage extends StatefulWidget {
 }
 
 class _ProfileModifyPageState extends State<ProfileModifyPage> {
-  // mockData
-  final Map<String, dynamic> mockData = {
-    'user_id': 1,
-    'nickname': 'Jun',
-    'email': 'scoups@example.com',
-    'phone_number': '1234567891',
-    'password': '123456',
-    'created_at': '2024-01-01',
-    'avatar': 'http://gallery.pawspulse.top/pawspulse/orange.png',
-    'address': '广东省广州市',
+  Map<String, dynamic> userData = {
+    'id': '',
+    'nickname': '',
+    'email': '',
+    'phone_number': '',
+    'created_at': '',
+    'avatar': '',
+    'address': '',
     'signature': '这个人很懒，什么都没留下',
-    'background': 'http://gallery.pawspulse.top/pawspulse/cat.jpg',
+    'background': 'http://gallery.pawspulse.top/pawspulse/orange.png', // 默认值
   };
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserData();
+  }
+
+  Future<void> _fetchUserData() async {
+    var response = await getUserById();
+    if (response['success']) {
+      var data = response['data'];
+      setState(() {
+        userData = {
+          'id': data['id'].toString(),
+          'nickname': data['nickname'] ?? '',
+          'email': data['email'] ?? '',
+          'phone_number': data['phone_number'] ?? '',
+          'created_at': data['created_at'] ?? '',
+          'avatar': data['avatar'] ??
+              'http://gallery.pawspulse.top/pawspulse/orange.png',
+          'address': data['address'] ?? '',
+          'signature': data['signature'] ?? '这个人很懒，什么都没留下',
+          'background': data['background'] ??
+              'http://gallery.pawspulse.top/pawspulse/orange.png',
+        };
+      });
+      print("获取用户信息成功");
+      print(userData);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(response['message'] ?? '获取用户信息失败')),
+      );
+    }
+  }
 
   void _onAvatarUploaded(String newAvatarUrl) {
     setState(() {
-      mockData['avatar'] = newAvatarUrl;
+      userData['avatar'] = newAvatarUrl;
     });
+  }
+
+  Future<void> _deleteAccount() async {
+    String resultMessage = await deleteUser();
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(resultMessage)));
   }
 
   @override
@@ -49,82 +89,82 @@ class _ProfileModifyPageState extends State<ProfileModifyPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   UploadAvatar(
-                    avatarUrl: mockData['avatar'],
+                    avatarUrl: userData['avatar'],
                     onAvatarUploaded: _onAvatarUploaded,
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 28),
+            const SizedBox(height: 28),
 
             // 昵称
             EditableField(
               label: '昵称',
-              initialValue: mockData['nickname'],
+              initialValue: userData['nickname'],
               onSave: (newValue) {
                 setState(() {
-                  mockData['nickname'] = newValue;
+                  userData['nickname'] = newValue;
                 });
               },
             ),
-            SizedBox(height: 8),
-            Divider(),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
+            const Divider(),
+            const SizedBox(height: 8),
 
             // 个性签名
             EditableField(
               label: '个性签名',
-              initialValue: mockData['signature'],
+              initialValue: userData['signature'],
               onSave: (newValue) {
                 setState(() {
-                  mockData['signature'] = newValue;
+                  userData['signature'] = newValue;
                 });
               },
             ),
-            SizedBox(height: 8),
-            Divider(),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
+            const Divider(),
+            const SizedBox(height: 8),
 
             // 邮箱
             EditableField(
               label: '邮箱',
-              initialValue: mockData['email'],
+              initialValue: userData['email'],
               onSave: (newValue) {
                 setState(() {
-                  mockData['email'] = newValue;
+                  userData['email'] = newValue;
                 });
               },
             ),
-            SizedBox(height: 8),
-            Divider(),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
+            const Divider(),
+            const SizedBox(height: 8),
 
             // 手机号
             EditableField(
               label: '手机号',
-              initialValue: mockData['phone_number'],
+              initialValue: userData['phone_number'],
               onSave: (newValue) {
                 setState(() {
-                  mockData['phone_number'] = newValue;
+                  userData['phone_number'] = newValue;
                 });
               },
             ),
-            SizedBox(height: 8),
-            Divider(),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
+            const Divider(),
+            const SizedBox(height: 8),
 
             // 地址
             AddressPicker(
-              initialAddress: mockData['address'],
+              initialAddress: userData['address'],
               onAddressChanged: (newAddress) {
                 setState(() {
-                  mockData['address'] = newAddress;
+                  userData['address'] = newAddress;
                 });
               },
             ),
-            SizedBox(height: 8),
-            Divider(),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
+            const Divider(),
+            const SizedBox(height: 8),
 
             // 创建时间
             Row(
@@ -135,15 +175,15 @@ class _ProfileModifyPageState extends State<ProfileModifyPage> {
                         color: Theme.of(context).colorScheme.primary)),
                 Row(
                   children: [
-                    Text(mockData['created_at']),
-                    SizedBox(width: 24),
+                    Text(userData['created_at']),
+                    const SizedBox(width: 24),
                   ],
                 ),
               ],
             ),
-            SizedBox(height: 8),
-            Divider(),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
+            const Divider(),
+            const SizedBox(height: 8),
 
             // 背景图
             Row(
@@ -157,12 +197,12 @@ class _ProfileModifyPageState extends State<ProfileModifyPage> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: Image.network(
-                        mockData['background'],
+                        userData['background'],
                         width: 60,
                         height: 60,
                       ),
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Icon(
                       Icons.arrow_forward_ios,
                       size: 16,
@@ -175,8 +215,9 @@ class _ProfileModifyPageState extends State<ProfileModifyPage> {
                 ),
               ],
             ),
-            SizedBox(height: 18),
-            // 保存按钮
+            const SizedBox(height: 18),
+
+            // 按钮行：修改密码、保存
             Row(
               children: [
                 Expanded(
@@ -184,16 +225,16 @@ class _ProfileModifyPageState extends State<ProfileModifyPage> {
                     onPressed: () {
                       // 修改密码按钮的点击事件
                     },
-                    child: Text('修改密码'),
+                    child: const Text('修改密码'),
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
                       // 保存按钮的点击事件
                     },
-                    child: Text('保存'),
+                    child: const Text('保存'),
                   ),
                 ),
               ],

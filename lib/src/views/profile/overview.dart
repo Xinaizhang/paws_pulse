@@ -1,222 +1,259 @@
-// overview.dart
 import 'package:flutter/material.dart';
+import './api.dart';
 
-class UserProfileOverview extends StatelessWidget {
-  final String avatarUrl;
-  final String nickname;
-  final bool hasPassedExam;
-  final String userId;
-  final String region;
+class UserProfileOverview extends StatefulWidget {
   final double barHeight;
   final VoidCallback onSettingsPressed;
 
   const UserProfileOverview({
     Key? key,
-    required this.avatarUrl,
-    required this.nickname,
-    required this.hasPassedExam,
-    required this.userId,
-    required this.region,
     required this.barHeight,
     required this.onSettingsPressed,
   }) : super(key: key);
 
   @override
+  _UserProfileOverviewState createState() => _UserProfileOverviewState();
+}
+
+class _UserProfileOverviewState extends State<UserProfileOverview> {
+  int followers = 0;
+  int following = 0;
+  int posts = 0;
+  bool hasPassedExam = false;
+
+  Map<String, dynamic> userData = {
+    'id': '',
+    'nickname': '',
+    'email': '',
+    'phone_number': '',
+    'created_at': '',
+    'avatar': '',
+    'address': '',
+    'signature': '这个人很懒，什么都没留下',
+    'background': 'http://gallery.pawspulse.top/pawspulse/orange.png', // 默认值
+  };
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserData();
+  }
+
+  Future<void> _fetchUserData() async {
+    var response = await getUserById();
+    if (response['success']) {
+      var data = response['data'];
+      setState(() {
+        userData = {
+          'id': data['id'].toString(),
+          'nickname': data['nickname'] ?? '',
+          'email': data['email'] ?? '',
+          'phone_number': data['phone_number'] ?? '',
+          'created_at': data['created_at'] ?? '',
+          'avatar': data['avatar'] ??
+              'http://gallery.pawspulse.top/pawspulse/orange.png',
+          'address': data['address'] ?? '',
+          'signature': data['signature'] ?? '这个人很懒，什么都没留下',
+          'background': data['background'] ??
+              'http://gallery.pawspulse.top/pawspulse/orange.png',
+        };
+      });
+      print("获取用户信息成功");
+      print(userData);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(response['message'] ?? '获取用户信息失败')),
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: 280,
-      padding: EdgeInsets.only(left: 24, right: 24, top: barHeight, bottom: 40),
+      padding: EdgeInsets.only(
+          left: 24, right: 24, top: widget.barHeight, bottom: 40),
       alignment: Alignment.bottomLeft,
-      // 设置壁纸样式
       decoration: BoxDecoration(
         image: DecorationImage(
-          image:
-              NetworkImage('http://gallery.pawspulse.top/pawspulse/orange.png'),
+          image: NetworkImage(userData['background']),
           fit: BoxFit.cover,
           opacity: 0.4,
-          // 添加颜色滤镜
-          // colorFilter: ColorFilter.mode(
-          //   Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.1),
-          //   BlendMode.softLight,
-          // ),
         ),
       ),
-      child: Stack(children: [
-        Align(
-          alignment: Alignment.topRight,
-          child: IconButton(
-            icon: Icon(
-              Icons.settings_rounded,
-              color: Theme.of(context).colorScheme.onSecondaryContainer,
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.topRight,
+            child: IconButton(
+              icon: Icon(
+                Icons.settings_rounded,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+              ),
+              onPressed: widget.onSettingsPressed,
             ),
-            onPressed: onSettingsPressed, // 使用传入的回调
           ),
-        ),
-        Align(
-          alignment: Alignment.bottomLeft,
-          child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-            Row(
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                // 头像
-                CircleAvatar(
-                  backgroundImage: NetworkImage(avatarUrl),
-                  radius: 36.0,
-                ),
-                SizedBox(width: 24),
-
-                // 简介
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                Row(
+                  children: [
+                    // 头像
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(userData['avatar']),
+                      radius: 36.0,
+                    ),
+                    SizedBox(width: 24),
+                    // 用户信息
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // 昵称
-                          Text(
-                            nickname,
-                            style: TextStyle(
-                              fontSize: 22,
-                              letterSpacing: 1.2,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: 'signikaNegative',
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-
-                          // 是否完成考试的tag
-                          Container(
-                            margin: EdgeInsets.only(left: 10),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 4,
-                              vertical: 2,
-                            ),
-                            decoration: BoxDecoration(
-                              color: hasPassedExam
-                                  ? Theme.of(context)
-                                      .colorScheme
-                                      .tertiaryContainer
-                                  : Theme.of(context)
-                                      .colorScheme
-                                      .errorContainer,
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Text(
-                              hasPassedExam ? '已通过考试' : '未完成考试',
-                              style: TextStyle(
-                                color: hasPassedExam
-                                    ? Theme.of(context)
-                                        .colorScheme
-                                        .onTertiaryContainer
-                                    : Theme.of(context)
-                                        .colorScheme
-                                        .onErrorContainer,
-                                fontSize: 12,
+                          Row(
+                            children: [
+                              // 昵称
+                              Text(
+                                userData['nickname'],
+                                style: TextStyle(
+                                  fontSize: 22,
+                                  letterSpacing: 1.2,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'signikaNegative',
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                                overflow: TextOverflow.ellipsis,
                               ),
+                              // 考试状态标记
+                              Container(
+                                margin: EdgeInsets.only(left: 10),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 4, vertical: 2),
+                                decoration: BoxDecoration(
+                                  color: hasPassedExam
+                                      ? Theme.of(context)
+                                          .colorScheme
+                                          .tertiaryContainer
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .errorContainer,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  hasPassedExam ? '已通过考试' : '未完成考试',
+                                  style: TextStyle(
+                                    color: hasPassedExam
+                                        ? Theme.of(context)
+                                            .colorScheme
+                                            .onTertiaryContainer
+                                        : Theme.of(context)
+                                            .colorScheme
+                                            .onErrorContainer,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 4),
+                          // 用户 ID
+                          Text(
+                            'ID: ${userData['id']}',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          // 地区
+                          Text(
+                            '地区: ${userData['address']}',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Theme.of(context).colorScheme.secondary,
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 4),
-
-                      // ID
-                      Text(
-                        'ID: $userId',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Theme.of(context).colorScheme.secondary,
+                    ),
+                  ],
+                ),
+                SizedBox(height: 16),
+                // 关注、粉丝、发布
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        Text(
+                          '$following',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 4),
-
-                      // 地区
-                      Text(
-                        '地区: $region',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Theme.of(context).colorScheme.secondary,
+                        Text(
+                          '关注',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          '$followers',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                        Text(
+                          '粉丝',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          '$posts',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                        Text(
+                          '发布',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                      ],
+                    ),
+                    // 编辑资料按钮
+                    ElevatedButton(
+                      onPressed: () =>
+                          Navigator.pushNamed(context, '/profile_modify'),
+                      child: Text('编辑资料'),
+                    ),
+                  ],
                 ),
               ],
             ),
-            SizedBox(height: 16),
-            // 关注、粉丝、发布
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  children: [
-                    Text(
-                      '123',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                    Text(
-                      '关注',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text(
-                      '22',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                    Text(
-                      '粉丝',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text(
-                      '13',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                    Text(
-                      '发布',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ],
-                ),
-                // 编辑资料 按钮
-                ElevatedButton(
-                  onPressed: () =>
-                      Navigator.pushNamed(context, '/profile_modify'),
-                  child: Text('编辑资料'),
-                ),
-              ],
-            ),
-          ]),
-        )
-      ]),
+          )
+        ],
+      ),
     );
   }
 }

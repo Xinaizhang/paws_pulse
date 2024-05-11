@@ -21,11 +21,6 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           children: [
             UserProfileOverview(
-              avatarUrl: 'http://gallery.pawspulse.top/pawspulse/blue.png',
-              nickname: 'Littleight小八',
-              hasPassedExam: false,
-              userId: '123456',
-              region: '上海 杨浦',
               barHeight: statusBarHeight,
               onSettingsPressed: () {
                 print("设置按钮被点击了");

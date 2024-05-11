@@ -9,7 +9,7 @@ class NavPage extends StatefulWidget {
 }
 
 class _NavPageState extends State<NavPage> {
-  int _bottomNavigationIndex = 4;
+  int _bottomNavigationIndex = 3;
   String? userName; // 声明userName变量，用于保存用户ID
 
   @override

@@ -9,7 +9,7 @@ export 'sign_up/index.dart';
 export 'community/index.dart';
 export 'community_add/index.dart';
 export 'community_detail/index.dart';
-export 'community_my/index.dart';
+export 'my_publish/index.dart';
 
 // 首页-宠物管理
 export 'home/index.dart';

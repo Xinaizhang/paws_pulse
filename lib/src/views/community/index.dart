@@ -32,7 +32,7 @@ class _CommunityPageState extends State<CommunityPage> {
         actions: [
           IconButton(
             icon: Icon(Icons.person_pin_rounded),
-            onPressed: () => Navigator.pushNamed(context, '/my_community'),
+            onPressed: () => Navigator.pushNamed(context, '/my_publish'),
           ),
           IconButton(
             icon: Icon(Icons.add),

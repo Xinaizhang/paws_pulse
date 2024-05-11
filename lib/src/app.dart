@@ -9,8 +9,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        '/': (context) => const SignInPage(),
-        //'/': (context) => NavPage(),
+        // '/': (context) => const SignInPage(),
+        '/': (context) => NavPage(),
         //'/': (context) => ProfileModifyPage(),
         '/sign_in': (context) => const SignInPage(),
         '/sign_up': (context) => SignUpPage(),
@@ -22,7 +22,7 @@ class App extends StatelessWidget {
         // 社区
         '/add_community': ((context) => AddCommunityPage()),
         '/community_detail': ((context) => CommunityDetailPage()),
-        '/my_community': ((context) => MyCommunityPage()), 
+        '/my_publish': ((context) => MyPublishPage()), 
         // 个人中心
         '/profile_modify': ((context) => ProfileModifyPage()),
         '/image_recognition': ((context) => ImageRecognitionPage()),
