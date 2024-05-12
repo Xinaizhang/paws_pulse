@@ -5,24 +5,28 @@ import 'package:paws_pulse/src/views/index.dart';
 import 'package:paws_pulse/src/common/index.dart';
 
 class App extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        // '/': (context) => const SignInPage(),
-        '/': (context) => NavPage(),
+        '/': (context) => const SignInPage(),
+        //'/': (context) => NavPage(),
         //'/': (context) => ProfileModifyPage(),
         '/sign_in': (context) => const SignInPage(),
         '/sign_up': (context) => SignUpPage(),
         '/nav': (context) => NavPage(),
+
         // 互助
         '/add_help': ((context) => AddHelpPage()),
-        '/help_detail': ((context) => HelpDetailPage()), 
-        '/my_help': ((context) => MyHelpPage()), 
+        '/help_detail': ((context) => HelpDetailPage()),
+        '/my_credit': ((context) => MyCreditPage()),
+
         // 社区
         '/add_community': ((context) => AddCommunityPage()),
         '/community_detail': ((context) => CommunityDetailPage()),
-        '/my_publish': ((context) => MyPublishPage()), 
+        '/my_publish': ((context) => MyPublishPage()),
+        
         // 个人中心
         '/profile_modify': ((context) => ProfileModifyPage()),
         '/image_recognition': ((context) => ImageRecognitionPage()),

@@ -4,7 +4,7 @@ import './setting.dart';
 import './overview.dart';
 import './my_baby.dart';
 import './pet_function.dart';
-import './my_post.dart';
+import 'my_post_help.dart';
 
 class ProfilePage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -49,8 +49,7 @@ class ProfilePage extends StatelessWidget {
                 ],
               ),
             ),
-      
-            MyPost(),
+            MyPostHelp(),
           ],
         ),
       ),

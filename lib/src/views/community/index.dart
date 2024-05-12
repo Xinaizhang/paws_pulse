@@ -31,7 +31,7 @@ class _CommunityPageState extends State<CommunityPage> {
         backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
         actions: [
           IconButton(
-            icon: Icon(Icons.person_pin_rounded),
+            icon: Icon(Icons.contact_page_outlined),
             onPressed: () => Navigator.pushNamed(context, '/my_publish'),
           ),
           IconButton(

@@ -1,6 +1,7 @@
 // my_publish - index.dart
 import 'package:flutter/material.dart';
 import './my_post_list.dart';
+import './my_help_list.dart';
 
 class MyPublishPage extends StatelessWidget {
   @override
@@ -49,6 +50,10 @@ class MyPublishPage extends StatelessWidget {
             ),
           ],
           bottom: TabBar(
+            labelColor: Theme.of(context).colorScheme.tertiary,
+            indicatorColor: Theme.of(context).colorScheme.tertiary,
+            unselectedLabelColor:
+                Theme.of(context).colorScheme.tertiary.withOpacity(0.65),
             tabs: [
               Tab(
                 icon: Icon(Icons.diversity_3),
@@ -64,7 +69,7 @@ class MyPublishPage extends StatelessWidget {
         body: TabBarView(
           children: [
             MyPostList(),
-            Text('我的互助'),
+            MyHelpList(),
           ],
         ),
       ),

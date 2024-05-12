@@ -2,6 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io';
 import '../../common/api_config.dart';
+import 'package:intl/intl.dart'; // Import for date formatting
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 Future<String> deleteUser() async {
@@ -49,11 +50,22 @@ Future<Map<String, dynamic>> getUserById() async {
     print("获取用户信息中......");
     print(responseData);
 
+    // Check if the request is successful
     if (response.statusCode == 200) {
+      var data = responseData['data'];
+
+      // Parse and reformat the `created_at` field
+      if (data.containsKey('created_at')) {
+        DateTime createdAt = DateTime.parse(data['created_at']);
+        String formattedDate = DateFormat('yyyy-MM-dd')
+            .format(createdAt); // Adjust format as desired
+        data['created_at'] = formattedDate;
+      }
+
       return {
         'success': true,
         'message': '获取用户信息成功',
-        'data': responseData['data'],
+        'data': data,
       };
     } else {
       return {

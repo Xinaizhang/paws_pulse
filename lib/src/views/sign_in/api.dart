@@ -2,14 +2,20 @@
 import '../../common/api_config.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'dart:io';
+// import 'dart:io';
 
 Future<Map<String, dynamic>> loginUser(
     String identifier, String password) async {
   try {
     var response = await http.post(
       Uri.parse('${ApiConfig.baseUrl}/app/login/'),
-      body: {'identifier': identifier, 'password': password},
+      // headers: {
+      //   'Content-Type': 'application/json',
+      // },
+      body: {
+        'identifier': identifier,
+        'password': password,
+      },
     );
 
     // Decode the response body
@@ -34,6 +40,8 @@ Future<Map<String, dynamic>> loginUser(
     }
   } catch (e) {
     // Error occurred during the request
+    print("产生报错: ${e}");
+
     return {
       'success': false,
       'message': '登录请求失败，请稍后重试',

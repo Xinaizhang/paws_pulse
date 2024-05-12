@@ -115,7 +115,7 @@ class _MyPostListState extends State<MyPostList> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('确认删除？'),
-          content: Text('确定要删除此帖子吗？'),
+          content: Text('删除后数据无法恢复，确定要删除此帖子吗？'),
           actions: [
             TextButton(
               child: Text('取消'),

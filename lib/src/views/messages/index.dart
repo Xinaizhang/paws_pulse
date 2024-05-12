@@ -13,6 +13,17 @@ class MessagesPage extends StatelessWidget {
           title:
               const Text('消息中心', style: TextStyle(fontWeight: FontWeight.w800)),
           centerTitle: true,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.assignment_ind_outlined),
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  '/my_publish',
+                );
+              },
+            )
+          ],
           bottom: TabBar(
             tabs: [
               Tab(

@@ -31,6 +31,7 @@ export 'help/index.dart';
 export 'help_add/index.dart';
 export 'help_detail/index.dart';
 export 'help_my/index.dart';
+export 'my_credit/index.dart';
 
 
 

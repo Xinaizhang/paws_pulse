@@ -48,11 +48,19 @@ class _HelpPageState extends State<HelpPage> {
           backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
           actions: [
             IconButton(
-                icon: Icon(Icons.person_pin_rounded),
+                icon: Icon(Icons.contact_page_outlined),
                 onPressed: () {
                   Navigator.pushNamed(
                     context,
-                    '/my_help',
+                    '/my_publish',
+                  );
+                }),
+            IconButton(
+                icon: Icon(Icons.speaker_notes_outlined),
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/my_credit',
                   );
                 }),
             IconButton(
