@@ -50,6 +50,7 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             MyPostHelp(),
+            //SizedBox(height: 20),
           ],
         ),
       ),

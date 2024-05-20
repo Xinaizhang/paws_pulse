@@ -28,11 +28,9 @@ class _MyPostHelpState extends State<MyPostHelp>
 
   @override
   Widget build(BuildContext context) {
-    double availableHeight = MediaQuery.of(context).size.height - 155;
+    double availableHeight = MediaQuery.of(context).size.height - 330;
 
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 20.0),
-      child: Column(
+    return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TabBar(
@@ -58,8 +56,7 @@ class _MyPostHelpState extends State<MyPostHelp>
               ],
             ),
           ),
-        ],
-      ),
+      ],
     );
   }
 

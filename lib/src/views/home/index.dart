@@ -10,6 +10,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, // 不自动添加返回按钮
         title: const Text(
           'PawsPulse',
           style: TextStyle(

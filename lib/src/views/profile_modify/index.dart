@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'edit_pop.dart';
 import 'upload_avatar.dart';
+import 'upload_background.dart';
 import 'address_picker.dart';
 import './api.dart';
 import '../profile/api.dart';
@@ -70,10 +71,23 @@ class _ProfileModifyPageState extends State<ProfileModifyPage> {
     });
   }
 
-  Future<void> _deleteAccount() async {
-    String resultMessage = await deleteUser();
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(resultMessage)));
+  void _onSavePressed() async {
+    var response = await updateUserInfo({
+      'email': userData['email'],
+      'nickname': userData['nickname'],
+      'address': userData['address'],
+      'phone_number': userData['phone_number'],
+      'signature': userData['signature'],
+    });
+    if (response['success']) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('更新成功!')),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(response['message'] ?? '更新失败')),
+      );
+    }
   }
 
   @override
@@ -207,13 +221,13 @@ class _ProfileModifyPageState extends State<ProfileModifyPage> {
                       TextStyle(color: Theme.of(context).colorScheme.primary)),
               Row(
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.network(
-                      userData['background'],
-                      width: 60,
-                      height: 60,
-                    ),
+                  UploadBackground(
+                    backgroundUrl: userData['background'],
+                    onBackgroundUploaded: (newUrl) {
+                      setState(() {
+                        userData['background'] = newUrl;
+                      });
+                    },
                   ),
                   const SizedBox(width: 8),
                   Icon(
@@ -242,9 +256,7 @@ class _ProfileModifyPageState extends State<ProfileModifyPage> {
               const SizedBox(width: 10),
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () {
-                    // 保存按钮的点击事件
-                  },
+                  onPressed: _onSavePressed,
                   child: const Text('保存'),
                 ),
               ),

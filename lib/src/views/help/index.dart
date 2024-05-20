@@ -41,6 +41,7 @@ class _HelpPageState extends State<HelpPage> {
 
         // appBar
         appBar: AppBar(
+          automaticallyImplyLeading: false, // 不自动添加返回按钮
           title:
               const Text('互助中心', style: TextStyle(fontWeight: FontWeight.w800)),
           centerTitle: true,

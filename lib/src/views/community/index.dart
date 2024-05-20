@@ -24,6 +24,7 @@ class _CommunityPageState extends State<CommunityPage> {
       backgroundColor:
           Theme.of(context).colorScheme.tertiaryContainer.withOpacity(0.3),
       appBar: AppBar(
+        automaticallyImplyLeading: false, // 不自动添加返回按钮
         title:
             const Text('宠物社区', style: TextStyle(fontWeight: FontWeight.w800)),
         centerTitle: true,

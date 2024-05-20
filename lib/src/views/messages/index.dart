@@ -10,6 +10,7 @@ class MessagesPage extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false, // 不自动添加返回按钮
           title:
               const Text('消息中心', style: TextStyle(fontWeight: FontWeight.w800)),
           centerTitle: true,

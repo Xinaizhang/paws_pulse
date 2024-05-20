@@ -1,10 +1,8 @@
-// profile_modify/upload_avatar.dart
+// upload_avatar.dart
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import '../../common/api_config.dart';
+import 'api.dart';
 
 class UploadAvatar extends StatefulWidget {
   final String avatarUrl;
@@ -19,6 +17,7 @@ class UploadAvatar extends StatefulWidget {
 class _UploadAvatarState extends State<UploadAvatar> {
   final ImagePicker _picker = ImagePicker();
   File? _image;
+  bool _isLoading = false; // 加载状态标志
 
   void _showImagePickerOptions() {
     showModalBottomSheet(
@@ -72,22 +71,17 @@ class _UploadAvatarState extends State<UploadAvatar> {
 
   Future<void> _uploadAvatar() async {
     if (_image == null) return;
-
-    final userId = 1; // 使用真实用户 ID
-    final uri = Uri.parse('${ApiConfig.baseUrl}/app/upload-avatar/$userId/');
-    final request = http.MultipartRequest('POST', uri);
-    request.files.add(await http.MultipartFile.fromPath('avatar', _image!.path));
-
-    final response = await request.send();
-    if (response.statusCode == 200) {
-      final responseData = await http.Response.fromStream(response);
-      final responseBody = json.decode(responseData.body);
-      String newAvatarUrl = responseBody['data']['avatar'];
+    setState(() => _isLoading = true); // 开始上传时显示加载指示器
+    final result = await uploadAvatar(_image!);
+    if (result['success']) {
+      String newAvatarUrl =
+          result['data']['avatar']; // 注意这里使用 'avatar' 而不是 'avatarUrl'
       widget.onAvatarUploaded(newAvatarUrl);
-      print('头像上传成功: ${responseBody['message']}');
     } else {
-      print('头像上传失败: ${response.statusCode}');
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(result['message'])));
     }
+    setState(() => _isLoading = false); // 上传结束后隐藏加载指示器
   }
 
   @override
@@ -97,6 +91,9 @@ class _UploadAvatarState extends State<UploadAvatar> {
       child: CircleAvatar(
         radius: 50,
         backgroundImage: _image != null ? FileImage(_image!) : NetworkImage(widget.avatarUrl) as ImageProvider,
+        child: _isLoading
+            ? CircularProgressIndicator(color: Colors.white)
+            : null, // 如果正在加载，显示加载指示器
       ),
     );
   }

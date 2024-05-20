@@ -20,7 +20,7 @@ class PetManage extends StatelessWidget {
                 },
               ),
               _buildGridItem(
-                '今日已喂食物',
+                '今日喂食',
                 '0g',
                 flex: 1,
                 color: Theme.of(context).colorScheme.secondaryContainer,
@@ -29,7 +29,7 @@ class PetManage extends StatelessWidget {
                 },
               ),
               _buildGridItem(
-                '宠物健康状态',
+                '健康状态',
                 '健康',
                 flex: 1,
                 color: Theme.of(context).colorScheme.tertiaryContainer,

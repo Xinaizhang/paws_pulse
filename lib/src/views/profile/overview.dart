@@ -15,7 +15,8 @@ class UserProfileOverview extends StatefulWidget {
   _UserProfileOverviewState createState() => _UserProfileOverviewState();
 }
 
-class _UserProfileOverviewState extends State<UserProfileOverview> {
+class _UserProfileOverviewState extends State<UserProfileOverview>
+    with WidgetsBindingObserver {
   int followers = 0;
   int following = 0;
   int posts = 0;
@@ -44,19 +45,7 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
     if (response['success']) {
       var data = response['data'];
       setState(() {
-        userData = {
-          'id': data['id'].toString(),
-          'nickname': data['nickname'] ?? '',
-          'email': data['email'] ?? '',
-          'phone_number': data['phone_number'] ?? '',
-          'created_at': data['created_at'] ?? '',
-          'avatar': data['avatar'] ??
-              'http://gallery.pawspulse.top/pawspulse/orange.png',
-          'address': data['address'] ?? '',
-          'signature': data['signature'] ?? '这个人很懒，什么都没留下',
-          'background': data['background'] ??
-              'http://gallery.pawspulse.top/pawspulse/orange.png',
-        };
+        userData = response['data'];
       });
       print("获取用户信息成功");
       print(userData);
@@ -76,7 +65,7 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
       alignment: Alignment.bottomLeft,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: NetworkImage(userData['background']),
+          image: NetworkImage(userData['background']?? 'http://gallery.pawspulse.top/pawspulse/orange.png'),
           fit: BoxFit.cover,
           opacity: 0.4,
         ),
@@ -243,10 +232,13 @@ class _UserProfileOverviewState extends State<UserProfileOverview> {
                     ),
                     // 编辑资料按钮
                     ElevatedButton(
-                      onPressed: () =>
-                          Navigator.pushNamed(context, '/profile_modify'),
+                      onPressed: () async {
+                        await Navigator.pushNamed(context, '/profile_modify');
+                        _fetchUserData(); // 无论如何在返回时都刷新数据
+                      },
                       child: Text('编辑资料'),
                     ),
+
                   ],
                 ),
               ],
