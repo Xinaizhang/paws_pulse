@@ -9,7 +9,6 @@ class PetIdCard extends StatelessWidget {
   final int petType;
   final String breed;
   final String birthDate;
-  final String age;
   final String address;
   final String petId;
   final bool isQr;
@@ -23,7 +22,6 @@ class PetIdCard extends StatelessWidget {
     required this.petType,
     required this.breed,
     required this.birthDate,
-    required this.age,
     required this.address,
     required this.petId,
     required this.isQr,
@@ -132,14 +130,6 @@ class PetIdCard extends StatelessWidget {
                       Text('出生', style: titleStyle),
                       SizedBox(width: 7),
                       Text(birthDate, style: textStyle),
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text('年龄', style: titleStyle),
-                      SizedBox(width: 7),
-                      Text(age, style: textStyle),
                     ],
                   ),
                   Row(

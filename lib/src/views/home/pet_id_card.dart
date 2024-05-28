@@ -130,7 +130,6 @@ class _PetIDCardState extends State<PetIDCard> {
                     petType: data['petType']!,
                     breed: data['breed']!,
                     birthDate: data['birthDate']!,
-                    age: data['age']!,
                     address: data['address']!,
                     petId: data['petId']!,
                     isQr: data['isQr']!,

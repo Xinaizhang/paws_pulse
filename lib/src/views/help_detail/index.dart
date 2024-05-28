@@ -83,7 +83,6 @@ class _HelpDetailPageState extends State<HelpDetailPage> {
                     petType: data['petType']!,
                     breed: data['breed']!,
                     birthDate: data['birthDate']!,
-                    age: data['age']!,
                     address: data['address']!,
                     petId: data['petId']!,
                     isQr: data['isQr']!,
@@ -130,3 +129,5 @@ class _HelpDetailPageState extends State<HelpDetailPage> {
     );
   }
 }
+
+

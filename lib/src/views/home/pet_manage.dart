@@ -21,7 +21,7 @@ class PetManage extends StatelessWidget {
               ),
               _buildGridItem(
                 '今日喂食',
-                '0g',
+                '450g',
                 flex: 1,
                 color: Theme.of(context).colorScheme.secondaryContainer,
                 onTap: () {
@@ -52,12 +52,12 @@ class PetManage extends StatelessWidget {
                 },
               ),
               _buildGridItem(
-                '金渐层',
-                '',
+                '拉布拉多',
+                '中大型犬，性格温顺...',
                 flex: 1,
                 color: Theme.of(context).colorScheme.secondaryContainer,
                 onTap: () {
-                  print('金渐层 tapped');
+                  print('品种 tapped');
                 },
               ),
             ],
@@ -80,6 +80,7 @@ class PetManage extends StatelessWidget {
         onTap: onTap,
         child: Container(
           margin: EdgeInsets.all(12),
+          padding: EdgeInsets.all(12),
           height: 135,
           decoration: BoxDecoration(
             color: color,

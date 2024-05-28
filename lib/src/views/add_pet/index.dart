@@ -358,65 +358,68 @@ class _AddPetPageState extends State<AddPetPage> {
                           ),
                         ),
                         Expanded(
-                          child: Row(
-                            children: [
-                              Radio<String>(
-                                value: '未绝育',
-                                groupValue: sterilization,
-                                activeColor: Colors.red[300],
-                                onChanged: (value) {
-                                  setState(() {
-                                    sterilization = value ?? '';
-                                  });
-                                },
-                              ),
-                              Text(
-                                '未绝育',
-                                style: TextStyle(
-                                  color: sterilization == '未绝育'
-                                      ? Colors.red[300]
-                                      : null,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal, // 设置滚动方向为水平
+                            child: Row(
+                              children: [
+                                Radio<String>(
+                                  value: '未绝育',
+                                  groupValue: sterilization,
+                                  activeColor: Colors.red[300],
+                                  onChanged: (value) {
+                                    setState(() {
+                                      sterilization = value ?? '';
+                                    });
+                                  },
                                 ),
-                              ),
-                              SizedBox(width: 40),
-                              Radio<String>(
-                                value: '已绝育',
-                                groupValue: sterilization,
-                                activeColor: Colors.green[300],
-                                onChanged: (value) {
-                                  setState(() {
-                                    sterilization = value ?? '';
-                                  });
-                                },
-                              ),
-                              Text(
-                                '已绝育',
-                                style: TextStyle(
-                                  color: sterilization == '已绝育'
-                                      ? Colors.green[300]
-                                      : null,
+                                Text(
+                                  '未绝育',
+                                  style: TextStyle(
+                                    color: sterilization == '未绝育'
+                                        ? Colors.red[300]
+                                        : null,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(width: 40),
-                              Radio<String>(
-                                value: '未知',
-                                groupValue: sterilization,
-                                activeColor: Colors.grey,
-                                onChanged: (value) {
-                                  setState(() {
-                                    sterilization = value ?? '';
-                                  });
-                                },
-                              ),
-                              Text(
-                                '未知',
-                                style: TextStyle(
-                                  color: sterilization == '未知'
-                                      ? Colors.grey
-                                      : null,
+                                SizedBox(width: 10),
+                                Radio<String>(
+                                  value: '已绝育',
+                                  groupValue: sterilization,
+                                  activeColor: Colors.green[300],
+                                  onChanged: (value) {
+                                    setState(() {
+                                      sterilization = value ?? '';
+                                    });
+                                  },
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  '已绝育',
+                                  style: TextStyle(
+                                    color: sterilization == '已绝育'
+                                        ? Colors.green[300]
+                                        : null,
+                                  ),
+                                ),
+                                SizedBox(width: 10),
+                                Radio<String>(
+                                  value: '未知',
+                                  groupValue: sterilization,
+                                  activeColor: Colors.grey,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      sterilization = value ?? '';
+                                    });
+                                  },
+                                ),
+                                Text(
+                                  '未知',
+                                  style: TextStyle(
+                                    color: sterilization == '未知'
+                                        ? Colors.grey
+                                        : null,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],

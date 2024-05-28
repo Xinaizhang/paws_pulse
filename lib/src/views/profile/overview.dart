@@ -17,10 +17,10 @@ class UserProfileOverview extends StatefulWidget {
 
 class _UserProfileOverviewState extends State<UserProfileOverview>
     with WidgetsBindingObserver {
-  int followers = 0;
-  int following = 0;
-  int posts = 0;
-  bool hasPassedExam = false;
+  int followers = 3;
+  int following = 17;
+  int posts = 4;
+  bool hasPassedExam = true;
 
   Map<String, dynamic> userData = {
     'id': '',
