@@ -43,7 +43,7 @@ class _UserProfileOverviewState extends State<UserProfileOverview>
   Future<void> _fetchUserData() async {
     var response = await getUserById();
     if (response['success']) {
-      var data = response['data'];
+      // var data = response['data'];
       setState(() {
         userData = response['data'];
       });

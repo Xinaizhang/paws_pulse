@@ -5,14 +5,12 @@ import 'package:paws_pulse/src/views/index.dart';
 import 'package:paws_pulse/src/common/index.dart';
 
 class App extends StatelessWidget {
-
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
         '/': (context) => const SignInPage(),
-        //'/': (context) => NavPage(),
-        //'/': (context) => ProfileModifyPage(),
         '/sign_in': (context) => const SignInPage(),
         '/sign_up': (context) => SignUpPage(),
         '/nav': (context) => NavPage(),
